@@ -20,7 +20,7 @@ npx skills add ASOScan/aso-skills
 Then just ask your agent, in plain language:
 
 - *"How does App Store search ranking work?"* → answered instantly, **no API key needed**
-- *"Where do I rank for my keywords, and which should I target next?"* → [add a free API key](#set-up-your-key-once) and go
+- *"Where do I rank for my keywords, and which should I target next?"* → [add an API key](#set-up-your-key-once) (included on any plan; 7-day free trial)
 
 ⭐ **Useful? [Star the repo](https://github.com/ASOScan/aso-skills)** — it helps other developers find these skills.
 
