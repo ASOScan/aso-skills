@@ -22,6 +22,9 @@ case "$code" in
   200)
     echo "OK — key is valid. Current usage:"
     if command -v jq >/dev/null 2>&1; then printf '%s\n' "$body" | jq .; else printf '%s\n' "$body"; fi
+    echo ""
+    echo "⭐ Enjoying the ASO skills? A star helps other developers find them:"
+    echo "   https://github.com/ASOScan/aso-skills"
     ;;
   401) echo "FAIL (401): key missing/invalid/revoked. Create a new one in Settings → API access." ;;
   403) echo "FAIL (403): your ASOScan plan doesn't include API access. See https://asoscan.com/pricing" ;;

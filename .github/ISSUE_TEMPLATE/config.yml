@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: ASOScan account / billing / API-key help
+    url: https://asoscan.com
+    about: Questions about your account, plan, credits, or your data are handled at ASOScan — not here.
+  - name: Public API reference (Swagger)
+    url: https://asoscan.com/api/developers
+    about: The full ASOScan Public API reference.

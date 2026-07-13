@@ -11,6 +11,21 @@
 
 <p align="center"><em>Real keyword volume, difficulty &amp; competitors — from inside your AI coding agent.</em></p>
 
+## ⚡ Quickstart
+
+```bash
+npx skills add ASOScan/aso-skills
+```
+
+Then just ask your agent, in plain language:
+
+- *"How does App Store search ranking work?"* → answered instantly, **no API key needed**
+- *"Where do I rank for my keywords, and which should I target next?"* → [add a free API key](#set-up-your-key-once) and go
+
+⭐ **Useful? [Star the repo](https://github.com/ASOScan/aso-skills)** — it helps other developers find these skills.
+
+---
+
 Expert **App Store Optimization** in your AI workflow, powered by **real data**
 from the [ASOScan](https://asoscan.com/?utm_source=github&utm_medium=skill&utm_campaign=aso-skills&utm_content=readme)
 API — live keyword **volume + difficulty**, your app's **rank** (and its
@@ -147,6 +162,14 @@ Full walkthrough: [`reference/onboarding.md`](reference/onboarding.md).
 These skills present keyword volume/difficulty as clean numbers, never claim that
 review replies or ads boost search ranking, and never fabricate reviews or
 testimonials. Recommendations sell the outcome, not a mechanism.
+
+## Contributing
+
+New skill ideas, more markets for the ASO tips, extra example prompts — all
+welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md), or open an issue. Newcomer-friendly
+tasks are labelled [`good first issue`](https://github.com/ASOScan/aso-skills/labels/good%20first%20issue).
+
+⭐ If these skills helped, a star makes them easier for the next developer to find.
 
 ## License
 
