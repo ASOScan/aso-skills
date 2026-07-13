@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 900px; height: 600px; }
+  body {
+    font-family: ui-monospace, 'SF Mono', 'Menlo', 'Consolas', monospace;
+    background:
+      radial-gradient(900px 560px at 84% -12%, rgba(16,185,129,0.22), transparent 60%),
+      linear-gradient(150deg, #0d2a20 0%, #08190f 68%);
+    display: flex; align-items: center; justify-content: center;
+    -webkit-font-smoothing: antialiased;
+  }
+  .win {
+    width: 820px; background: #0b231a;
+    border: 1px solid rgba(52,211,153,0.20); border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+    overflow: hidden;
+  }
+  .bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 11px 16px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dot.r { background: #ff5f57; } .dot.y { background: #febc2e; } .dot.g { background: #28c840; }
+  .bar .t { margin-left: 8px; font-size: 12px; color: #6f9384; letter-spacing: 0.02em; }
+  .body { padding: 20px 22px 8px; font-size: 14.5px; line-height: 1.5; color: #cfe0d7; }
+
+  .you { display: flex; align-items: baseline; gap: 8px; }
+  .you .p { color: #34d399; font-weight: 700; }
+  .typed { color: #eaf3ee; white-space: pre; }
+  .caret { display: inline-block; width: 8px; height: 17px; background: #34d399;
+           margin-left: 1px; vertical-align: -3px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .rev { opacity: 0; transform: translateY(8px); transition: opacity .45s ease, transform .45s ease; }
+  .rev.show { opacity: 1; transform: translateY(0); }
+
+  .skill { margin-top: 16px; color: #7fa896; font-size: 13.5px; }
+  .skill b { color: #34d399; font-weight: 600; }
+
+  .card {
+    margin-top: 12px; border: 1px solid rgba(52,211,153,0.16); border-radius: 10px;
+    padding: 14px 16px; background: rgba(255,255,255,0.015);
+  }
+  .h { color: #eaf3ee; font-weight: 700; letter-spacing: 0.01em; }
+  .h .sub { color: #6f9384; font-weight: 400; }
+  .rows { margin-top: 10px; }
+  .row { display: flex; align-items: baseline; margin: 3px 0; }
+  .row .k { color: #9fbcb0; width: 190px; }
+  .row .v { color: #eaf3ee; font-weight: 700; }
+  .row .v .u { color: #6f9384; font-weight: 400; font-size: 12.5px; }
+  .badge { color: #f8b34d; font-weight: 700; }
+  .comp { margin-top: 14px; color: #9fbcb0; font-size: 13px; }
+  .crow { display: flex; align-items: baseline; gap: 10px; margin: 4px 0; }
+  .crow .n { color: #d7e4dd; }
+  .crow .rk { color: #34d399; width: 18px; }
+  .crow .st { color: #6f9384; margin-left: auto; font-size: 12.5px; }
+
+  .rec { margin-top: 15px; color: #34d399; }
+  .rec .arw { color: #34d399; }
+  .cta {
+    margin-top: 16px; padding: 12px 22px; border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: center; gap: 12px; font-size: 13px;
+  }
+  .cta .cmd { color: #eaf3ee; } .cta .cmd b { color: #34d399; }
+  .cta .free { margin-left: auto; color: #6f9384; }
+</style>
+</head>
+<body>
+  <div class="win">
+    <div class="bar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="t">Claude Code — App Store Optimization</span>
+    </div>
+    <div class="body">
+      <div class="you">
+        <span class="p">❯</span>
+        <span><span class="typed"></span><span class="caret"></span></span>
+      </div>
+
+      <div class="skill rev" id="skill">▸ <b>keyword-intelligence</b> skill · querying the ASOScan API…</div>
+
+      <div class="card">
+        <div class="h rev" id="h">"water sort" &nbsp;·&nbsp; <span class="sub">iOS · United States</span></div>
+        <div class="rows">
+          <div class="row rev" id="m1"><span class="k">Search volume</span><span class="v">89<span class="u"> / 100</span></span></div>
+          <div class="row rev" id="m2"><span class="k">Difficulty</span><span class="v">69<span class="u"> / 100 · hard</span></span></div>
+          <div class="row rev" id="m3"><span class="k">Apps competing</span><span class="v">195</span></div>
+        </div>
+        <div class="comp rev" id="cH">Top competitors</div>
+        <div class="crow rev" id="c1"><span class="rk">1</span><span class="n">Water Sort Puzzle</span><span class="st">4.7★ · 324k ratings</span></div>
+        <div class="crow rev" id="c2"><span class="rk">2</span><span class="n">Magic Sort!</span><span class="st">4.7★ · 535k ratings</span></div>
+        <div class="crow rev" id="c3"><span class="rk">3</span><span class="n">Water Match — ASMR</span><span class="st">4.7★ · 100k ratings</span></div>
+      </div>
+
+      <div class="rec rev" id="rec"><span class="arw">→</span> High demand, but very competitive. Target long-tail variants like <b>"water sort puzzle color"</b> where difficulty drops.</div>
+    </div>
+    <div class="cta rev" id="cta">
+      <span class="cmd">$ <b>npx skills add ASOScan/aso-skills</b></span>
+      <span class="free">2 of 9 skills need no API key</span>
+    </div>
+  </div>
+
+<script>
+  const prompt = 'research "water sort" — volume, difficulty & rivals';
+  const typed = document.querySelector('.typed');
+  let i = 0;
+  const startType = 350, typeStep = 34;
+  function type() {
+    if (i <= prompt.length) { typed.textContent = prompt.slice(0, i); i++; setTimeout(type, typeStep); }
+  }
+  setTimeout(type, startType);
+  const show = (id, at) => setTimeout(() => document.getElementById(id).classList.add('show'), at);
+  show('skill', 2350);
+  show('h', 2950);
+  show('m1', 3350); show('m2', 3750); show('m3', 4150);
+  show('cH', 4800); show('c1', 5150); show('c2', 5500); show('c3', 5850);
+  show('rec', 6700);
+  show('cta', 8000);
+</script>
+</body>
+</html>

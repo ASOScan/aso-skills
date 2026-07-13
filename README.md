@@ -5,6 +5,12 @@
 ![Works with: Claude · Cursor · any Agent Skills](https://img.shields.io/badge/works%20with-Claude%20%C2%B7%20Cursor%20%C2%B7%20any%20Agent%20Skills-047857)
 ![ASO data by ASOScan](https://img.shields.io/badge/ASO%20data-ASOScan-047857)
 
+<p align="center">
+  <img src=".github/demo.gif" alt="ASOScan ASO skills running inside Claude Code — live keyword research with real volume, difficulty and competitors" width="820">
+</p>
+
+<p align="center"><em>Real keyword volume, difficulty &amp; competitors — from inside your AI coding agent.</em></p>
+
 Expert **App Store Optimization** in your AI workflow, powered by **real data**
 from the [ASOScan](https://asoscan.com/?utm_source=github&utm_medium=skill&utm_campaign=aso-skills&utm_content=readme)
 API — live keyword **volume + difficulty**, your app's **rank** (and its
