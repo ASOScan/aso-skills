@@ -4,70 +4,55 @@
 <meta charset="utf-8">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { width: 900px; height: 600px; }
+  html, body { width: 900px; height: 680px; }
   body {
-    font-family: ui-monospace, 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
     background:
-      radial-gradient(900px 560px at 84% -12%, rgba(16,185,129,0.22), transparent 60%),
-      linear-gradient(150deg, #0d2a20 0%, #08190f 68%);
+      radial-gradient(900px 620px at 85% -12%, rgba(16,185,129,0.20), transparent 60%),
+      linear-gradient(150deg, #0d2a20 0%, #08190f 70%);
     display: flex; align-items: center; justify-content: center;
     -webkit-font-smoothing: antialiased;
   }
+  .mono { font-family: ui-monospace, 'SF Mono', 'Menlo', 'Consolas', monospace; }
   .win {
-    width: 820px; background: #0b231a;
-    border: 1px solid rgba(52,211,153,0.20); border-radius: 14px;
-    box-shadow: 0 24px 60px rgba(0,0,0,0.45);
-    overflow: hidden;
+    width: 838px; background: #1c1b19;
+    border: 1px solid rgba(52,211,153,0.18); border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.45); overflow: hidden;
   }
-  .bar {
-    display: flex; align-items: center; gap: 8px;
-    padding: 11px 16px; border-bottom: 1px solid rgba(255,255,255,0.06);
-    background: rgba(255,255,255,0.02);
-  }
+  .bar { display: flex; align-items: center; gap: 8px; padding: 11px 16px;
+         border-bottom: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015); }
   .dot { width: 11px; height: 11px; border-radius: 50%; }
   .dot.r { background: #ff5f57; } .dot.y { background: #febc2e; } .dot.g { background: #28c840; }
-  .bar .t { margin-left: 8px; font-size: 12px; color: #6f9384; letter-spacing: 0.02em; }
-  .body { padding: 20px 22px 8px; font-size: 14.5px; line-height: 1.5; color: #cfe0d7; }
+  .bar .t { margin-left: 8px; font-size: 12px; color: #7f8b84; }
+  .body { padding: 18px 22px 6px; color: #e7e4de; font-size: 14px; line-height: 1.5; }
 
   .you { display: flex; align-items: baseline; gap: 8px; }
-  .you .p { color: #34d399; font-weight: 700; }
-  .typed { color: #eaf3ee; white-space: pre; }
-  .caret { display: inline-block; width: 8px; height: 17px; background: #34d399;
-           margin-left: 1px; vertical-align: -3px; animation: blink 1s steps(1) infinite; }
+  .you .p { color: #34d399; font-weight: 700; font-family: ui-monospace, monospace; }
+  .typed { color: #eef0ec; white-space: pre; }
+  .caret { display: inline-block; width: 8px; height: 16px; background: #34d399; margin-left: 1px;
+           vertical-align: -3px; animation: blink 1s steps(1) infinite; }
   @keyframes blink { 50% { opacity: 0; } }
 
-  .rev { opacity: 0; transform: translateY(8px); transition: opacity .45s ease, transform .45s ease; }
+  .rev { opacity: 0; transform: translateY(7px); transition: opacity .4s ease, transform .4s ease; }
   .rev.show { opacity: 1; transform: translateY(0); }
 
-  .skill { margin-top: 16px; color: #7fa896; font-size: 13.5px; }
-  .skill b { color: #34d399; font-weight: 600; }
+  .skill { margin-top: 15px; font-size: 12.5px; color: #8fb0a3; font-family: ui-monospace, monospace; }
+  .skill b { color: #34d399; }
+  h3 { font-size: 14.5px; font-weight: 700; margin: 11px 0 9px; color: #f2f0ec; }
+  h3 .dim { color: #8f8b83; font-weight: 400; }
 
-  .card {
-    margin-top: 12px; border: 1px solid rgba(52,211,153,0.16); border-radius: 10px;
-    padding: 14px 16px; background: rgba(255,255,255,0.015);
-  }
-  .h { color: #eaf3ee; font-weight: 700; letter-spacing: 0.01em; }
-  .h .sub { color: #6f9384; font-weight: 400; }
-  .rows { margin-top: 10px; }
-  .row { display: flex; align-items: baseline; margin: 3px 0; }
-  .row .k { color: #9fbcb0; width: 190px; }
-  .row .v { color: #eaf3ee; font-weight: 700; }
-  .row .v .u { color: #6f9384; font-weight: 400; font-size: 12.5px; }
-  .badge { color: #f8b34d; font-weight: 700; }
-  .comp { margin-top: 14px; color: #9fbcb0; font-size: 13px; }
-  .crow { display: flex; align-items: baseline; gap: 10px; margin: 4px 0; }
-  .crow .n { color: #d7e4dd; }
-  .crow .rk { color: #34d399; width: 18px; }
-  .crow .st { color: #6f9384; margin-left: auto; font-size: 12.5px; }
-
-  .rec { margin-top: 15px; color: #34d399; }
-  .rec .arw { color: #34d399; }
-  .cta {
-    margin-top: 16px; padding: 12px 22px; border-top: 1px solid rgba(255,255,255,0.06);
-    display: flex; align-items: center; gap: 12px; font-size: 13px;
-  }
-  .cta .cmd { color: #eaf3ee; } .cta .cmd b { color: #34d399; }
-  .cta .free { margin-left: auto; color: #6f9384; }
+  table { border-collapse: collapse; width: 100%; margin: 2px 0 10px; font-size: 13.5px; }
+  th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid #322f2b; }
+  th { color: #9b9790; font-weight: 600; font-size: 12px; border-bottom: 1px solid #45413b; }
+  td { color: #d7d3cc; font-variant-numeric: tabular-nums; }
+  td.kw { font-family: ui-monospace, monospace; color: #eef0ec; }
+  p { margin: 8px 0; }
+  strong { color: #f2f0ec; }
+  ol { margin: 5px 0 8px 20px; }
+  li { margin: 4px 0; }
+  li code { background: #2a2824; padding: 1px 6px; border-radius: 4px; color: #34d399; font-size: 12.5px; font-family: ui-monospace, monospace; }
+  .next { color: #9b9790; font-size: 12.5px; border-top: 1px solid #2a2824; padding-top: 9px; margin-top: 10px; }
+  .next strong { color: #b9d6c9; }
 </style>
 </head>
 <body>
@@ -82,45 +67,46 @@
         <span><span class="typed"></span><span class="caret"></span></span>
       </div>
 
-      <div class="skill rev" id="skill">▸ <b>keyword-intelligence</b> skill · querying the ASOScan API…</div>
+      <div class="skill rev" id="skill">▸ using <b>keyword-intelligence</b> skill · ASOScan API</div>
 
-      <div class="card">
-        <div class="h rev" id="h">"water sort" &nbsp;·&nbsp; <span class="sub">iOS · United States</span></div>
-        <div class="rows">
-          <div class="row rev" id="m1"><span class="k">Search volume</span><span class="v">89<span class="u"> / 100</span></span></div>
-          <div class="row rev" id="m2"><span class="k">Difficulty</span><span class="v">69<span class="u"> / 100 · hard</span></span></div>
-          <div class="row rev" id="m3"><span class="k">Apps competing</span><span class="v">195</span></div>
-        </div>
-        <div class="comp rev" id="cH">Top competitors</div>
-        <div class="crow rev" id="c1"><span class="rk">1</span><span class="n">Water Sort Puzzle</span><span class="st">4.7★ · 324k ratings</span></div>
-        <div class="crow rev" id="c2"><span class="rk">2</span><span class="n">Magic Sort!</span><span class="st">4.7★ · 535k ratings</span></div>
-        <div class="crow rev" id="c3"><span class="rk">3</span><span class="n">Water Match — ASMR</span><span class="st">4.7★ · 100k ratings</span></div>
-      </div>
+      <h3 class="rev" id="h">Keyword intelligence — Water Sort: Liquid Sort Puzzle (US) &nbsp;·&nbsp; <span class="dim">credits left: 9,921</span></h3>
 
-      <div class="rec rev" id="rec"><span class="arw">→</span> High demand, but tough (difficulty 69). The long-tail <b>"water sort games"</b> is far easier — difficulty <b>36</b> — at still-solid volume.</div>
-    </div>
-    <div class="cta rev" id="cta">
-      <span class="cmd">$ <b>npx skills add ASOScan/aso-skills</b></span>
-      <span class="free">2 of 9 skills need no API key</span>
+      <table>
+        <thead><tr class="rev" id="thead">
+          <th>Keyword</th><th>Volume</th><th>Difficulty</th><th>Rank</th><th>&Delta; 7d</th><th>Read</th>
+        </tr></thead>
+        <tbody>
+          <tr class="rev" id="r1"><td class="kw">water sort</td><td>89</td><td>69</td><td>—</td><td>—</td><td>🟠 Stretch</td></tr>
+          <tr class="rev" id="r2"><td class="kw">water sort games</td><td>64</td><td>36</td><td>—</td><td>—</td><td>🟢 Win now</td></tr>
+          <tr class="rev" id="r3"><td class="kw">color water sort</td><td>50</td><td>44</td><td>—</td><td>—</td><td>🟢 Win now</td></tr>
+        </tbody>
+      </table>
+
+      <p class="rev" id="tr"><strong>Trends:</strong> research-only (untracked) — no rank history yet. "water sort" has <strong>194</strong> apps competing; top rivals: Water Sort Puzzle (4.7&#9733;, 324k), Magic Sort! (4.7&#9733;, 536k), Water Match — ASMR (4.7&#9733;, 100k).</p>
+
+      <p class="rev" id="wl"><strong>What I'd do:</strong></p>
+      <ol>
+        <li class="rev" id="w1">Don't fight <code>water sort</code> head-on — difficulty 69 with 194 rivals needs store authority.</li>
+        <li class="rev" id="w2">Target <code>water sort games</code> (volume 64, difficulty 36) — nearly the demand at ~half the difficulty.</li>
+        <li class="rev" id="w3">Add <code>color water sort</code> (50 / 44) as a secondary win-now term.</li>
+      </ol>
+
+      <p class="next rev" id="nx">Next: track these with <strong>keyword-opportunities</strong>, then place them with <strong>metadata-audit</strong>.</p>
     </div>
   </div>
 
 <script>
-  const prompt = 'research "water sort" — volume, difficulty & rivals';
+  const prompt = 'research "water sort" for my iOS game — is it worth targeting?';
   const typed = document.querySelector('.typed');
-  let i = 0;
-  const startType = 350, typeStep = 34;
-  function type() {
-    if (i <= prompt.length) { typed.textContent = prompt.slice(0, i); i++; setTimeout(type, typeStep); }
-  }
-  setTimeout(type, startType);
+  let i = 0; const step = 30;
+  function type(){ if (i <= prompt.length){ typed.textContent = prompt.slice(0,i); i++; setTimeout(type, step); } }
+  setTimeout(type, 350);
   const show = (id, at) => setTimeout(() => document.getElementById(id).classList.add('show'), at);
-  show('skill', 2350);
-  show('h', 2950);
-  show('m1', 3350); show('m2', 3750); show('m3', 4150);
-  show('cH', 4800); show('c1', 5150); show('c2', 5500); show('c3', 5850);
-  show('rec', 6700);
-  show('cta', 8000);
+  show('skill',2350); show('h',2850); show('thead',3150);
+  show('r1',3450); show('r2',3750); show('r3',4050);
+  show('tr',4750); show('wl',5350);
+  show('w1',5650); show('w2',5950); show('w3',6250);
+  show('nx',7050);
 </script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 name: keyword-intelligence
 description: When the user wants to analyze keyword performance for an app tracked in ASOScan — real search volume, difficulty, the app's current rank and rank movement, daily rank history, weekly volume/difficulty trends, or live on-demand research for a new term. Also use when the user mentions "how hard is this keyword", "search volume for X", "where do I rank for Y", "is my rank going up or down", "show my rank history", or "research this keyword". For discovering new keywords to target, see keyword-opportunities.
 metadata:
-  version: 1.1.0
+  version: 1.2.0
 ---
 
 # Keyword Intelligence
@@ -37,6 +37,12 @@ status to handle errors (see the bottom). If the key is unset, hand off to
 5. **Live research** (a term not tracked yet) — `GET /apps/{id}/keywords/research?term=…&country=US`
    (**8 credits — cache it**; URL-encode the term) → `{ term, platform, country,
    volume, difficulty, competingAppsCount, topApps[] }`. A failed lookup is 400 (free).
+6. **Find easier alternatives when a term is hard.** If a researched term is high-volume but
+   **high-difficulty** (🟠 Stretch), research 2–3 long-tail variants of it — add a qualifier such as
+   `<term> games`, `<term> app`, `color <term>`, `best <term>` — via the research endpoint (step 5),
+   and surface any that keep useful volume at **lower difficulty** (a 🟢 Win-now alternative). Cache
+   each. This is the highest-leverage move for a Stretch term: point the user at a keyword they can
+   realistically win instead of one they can't.
 
 ## How to read the numbers
 
