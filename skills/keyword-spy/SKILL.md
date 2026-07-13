@@ -1,0 +1,78 @@
+---
+name: keyword-spy
+description: When the user wants to reverse-look-up every keyword an app ranks for using ASOScan's keyword-spy — the full set of terms an app appears under (community rank pool plus discovered terms), flagged by whether you already track them. Also use when the user mentions "what keywords does this app rank for", "reverse keyword lookup", "spy on a competitor's keywords", "what search terms is X winning", or "which of their keywords am I missing". For the fuller competitive picture, see competitor-analysis.
+metadata:
+  version: 1.1.0
+---
+
+# Keyword Spy
+
+See the full keyword footprint of an app — yours or a tracked competitor's — with
+ASOScan, and mine it for real terms you should be targeting too.
+
+## When to use
+
+- "What keywords does `<app>` rank for?"
+- "Spy on `<competitor>`'s keywords."
+- "Which of their terms am I not tracking?"
+
+## Calling the ASOScan API
+
+Base `https://asoscan.com/api/public/v1` · header `Authorization: Bearer $ASOSCAN_API_KEY`.
+JSON, camelCase. The API is **owner-scoped** — it only sees the user's own apps +
+their tracked competitors. If the key is unset, hand off to **asoscan-setup**.
+
+1. **Find the app** — `GET /apps` → use the `id`.
+   - **Own app** → spy it directly.
+   - **A rival** → it must be a **tracked competitor** first. Check
+     `GET /apps/{id}/competitors`; if absent, add it via
+     `POST /apps/{id}/competitors { "storeUrl": "…" }` (2 credits, **write** key),
+     then spy the returned competitor's `id`. Add-by-URL only — there's no lookup
+     by app name.
+2. **Spy** — `GET /apps/{id}/keyword-spy?country=` (**2 credits**) →
+   `{ appName, totalKeywordsFound, communityPoolSize, discoveryStatus,
+   keywords[]{ term, rank, volume, difficulty, origin, isTracked } }`.
+   - `origin` = `"community"` \| `"discovered"`; `isTracked` = already in your set.
+   - `discoveryStatus` = `"cached"` \| `"none"`. The public API doesn't trigger a
+     fresh crawl, so a just-added competitor may be sparse until ASOScan's
+     background discovery has cached results — re-calling won't add more right away.
+
+## How to analyze
+
+1. **Coverage** — how many terms, split by `origin`.
+2. **Steal list** (the payoff) — terms the *competitor* ranks for that are relevant
+   to your app AND `isTracked = false`. Filter for relevance first.
+3. **Overlap** — terms you both rank for (battlegrounds).
+4. Feed the best into **keyword-intelligence** (validate) then **keyword-opportunities**
+   (track) — the natural next steps in ASOScan.
+
+## Output template
+
+```
+### Keyword spy — {target app} ({country})   ·  credits left: {remaining}
+
+Ranks for **{totalKeywordsFound}** keywords ({communityPoolSize} pooled · rest discovered).
+
+**Terms worth stealing** (they rank, relevant, not yours yet)
+| Keyword | Rank | Origin | Note |
+|---|---|---|---|
+
+**Shared battlegrounds**
+| Keyword | Their rank | Origin |
+|---|---|---|
+```
+
+## Errors, credits & honesty
+
+- `401` → asoscan-setup · `403` no API access (or read-only key on the add) · `402`
+  out of credits · `404` not owned/tracked · `503` not enabled yet. Spy = 2 credits,
+  add-competitor = 2.
+- A term appearing in spy is a ranking signal, not proof it suits your app — filter
+  for relevance. Clean numbers only.
+- Full reference: <https://asoscan.com/api/developers>
+
+## Related
+
+- **competitor-analysis** — the fuller competitive picture.
+- **keyword-intelligence** — validate stolen terms.
+- **keyword-opportunities** — track the winners.

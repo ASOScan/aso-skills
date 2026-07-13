@@ -1,0 +1,13 @@
+{
+  "skills": ["asoscan-router", "keyword-opportunities"],
+  "query": "Suggest keywords I should track for my app that I don't rank for yet.",
+  "setup": "ASOSCAN_API_KEY set + at least one app in the ASOScan account.",
+  "expected_behavior": [
+    "Calls GET /apps/{id}/opportunities and ranks by opportunityScore",
+    "Does NOT reference a non-existent 'source' field; uses competitorRanks (isYou/rank) to identify gaps you don't rank for",
+    "Filters for relevance and difficulty before recommending, splitting Quick wins vs Watchlist",
+    "Offers to track the chosen terms via POST /apps/{id}/keywords and notes a write-scoped key is required",
+    "Does not track anything without explicit approval, and reports added/skipped after writing",
+    "Presents numbers cleanly and makes no ranking guarantee"
+  ]
+}

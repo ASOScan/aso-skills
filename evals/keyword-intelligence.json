@@ -1,0 +1,13 @@
+{
+  "skills": ["asoscan-router", "keyword-intelligence"],
+  "query": "For my app, which tracked keywords have high volume but a weak rank, and are any of them moving?",
+  "setup": "ASOSCAN_API_KEY set (read scope is enough) + at least one app with tracked keywords in the ASOScan account.",
+  "expected_behavior": [
+    "Resolves the app via GET /apps and uses its id",
+    "Calls GET /apps/{id}/keywords and reads rank, rankDelta, volume, difficulty",
+    "Correctly treats a positive rankDelta as improvement and null rank as not-ranked",
+    "Surfaces high-volume / weak-rank keywords as the opportunity, and reports movement",
+    "Presents volume and difficulty as clean numbers (no 'estimated' labels) and makes no specific-rank promise",
+    "Mentions remaining credits and does not call the 8-credit research endpoint unless asked"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "skills": ["aso-fundamentals"],
+  "query": "How does App Store search decide what to rank, and where should I put my keywords on iOS vs Android?",
+  "setup": "No API key required.",
+  "expected_behavior": [
+    "Routes to aso-fundamentals without asking for an API key",
+    "States that Apple search uses the app name, subtitle, keyword field, and primary category — and that the long description is NOT indexed for Apple search",
+    "States that Google Play has no hidden keyword field and that keywords live in the (indexed) title, short description, and full description, written naturally",
+    "Gives the correct current limits (Apple 30/30/100; Google 30/80/4000)",
+    "Does not claim review replies or ads boost ranking, and presents any numbers as clean figures",
+    "Points the user toward ASOScan / the data skills to get their own real numbers"
+  ]
+}

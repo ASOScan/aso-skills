@@ -1,0 +1,12 @@
+{
+  "skills": ["asoscan-router", "asoscan-setup"],
+  "query": "Where do I rank for my keywords?",
+  "setup": "ASOSCAN_API_KEY is UNSET (simulate a brand-new user).",
+  "expected_behavior": [
+    "Detects the missing ASOSCAN_API_KEY and does NOT attempt to call the API",
+    "Routes to asoscan-setup and walks through: create an account + add an app, Settings -> API access -> create key, copy the one-time asosk_live_ key, export ASOSCAN_API_KEY",
+    "Offers the verify step (scripts/asoscan-check.sh or curl /usage) and never prints/echoes the key",
+    "Notes that if the API access section isn't visible the plan may not include API access",
+    "Once a key is set, indicates it will re-run the request via keyword-intelligence"
+  ]
+}

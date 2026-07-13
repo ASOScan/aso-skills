@@ -1,0 +1,13 @@
+{
+  "skills": ["asoscan-router", "metadata-audit"],
+  "query": "Audit my app's listing and tell me the top fixes.",
+  "setup": "ASOSCAN_API_KEY set + at least one app in the ASOScan account.",
+  "expected_behavior": [
+    "Uses GET /apps/{id}/aso-score as the headline number (overall + pillars + recommendations) rather than inventing a score",
+    "Reads GET /apps/{id}/metadata for the current title/subtitle/keywords/description",
+    "Enforces the correct platform limits (Apple 30/30/100 chars; Google 30/80/4000) and Apple's no-repeat / no-plural / no-generic keyword rules",
+    "Knows the Apple long description is not indexed for search, and that Google's full description is",
+    "Gives concrete field-by-field fixes with exact replacement text and character counts",
+    "Invents no awards/#1 claims, respects limits, and recommends outcomes not a guaranteed rank"
+  ]
+}

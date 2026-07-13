@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1280px; height: 640px; }
+  body {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background:
+      radial-gradient(1100px 700px at 82% -8%, rgba(16,185,129,0.28), transparent 60%),
+      linear-gradient(150deg, #0d2a20 0%, #0A1F18 62%);
+    color: #EAF3EE;
+    -webkit-font-smoothing: antialiased;
+    padding: 74px 84px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+  .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: linear-gradient(120deg, black 20%, transparent 78%);
+  }
+  .top { display: flex; align-items: center; gap: 16px; position: relative; }
+  .mark {
+    width: 52px; height: 52px; border-radius: 13px;
+    background: linear-gradient(150deg, #10B981, #047857);
+    display: grid; place-items: center;
+    font-weight: 800; font-size: 27px; color: #04231a;
+    box-shadow: 0 8px 24px rgba(4,120,87,0.45);
+  }
+  .brand { font-size: 26px; font-weight: 700; letter-spacing: -0.01em; }
+  .eyebrow {
+    margin-left: 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.22em;
+    color: #6ee0b0; align-self: center;
+  }
+  .mid { position: relative; }
+  h1 {
+    font-size: 74px; line-height: 1.02; font-weight: 800; letter-spacing: -0.03em;
+    max-width: 1000px;
+  }
+  h1 em { font-style: normal; color: #34d399; }
+  .sub {
+    margin-top: 22px; font-size: 25px; line-height: 1.45; color: #b8ccc2;
+    max-width: 940px; font-weight: 400;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 12px; margin-top: 30px;
+    font-family: 'SFMono-Regular', ui-monospace, 'Menlo', monospace;
+    font-size: 22px; color: #d7e4dd;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(52,211,153,0.35);
+    border-radius: 12px; padding: 13px 20px;
+  }
+  .chip b { color: #34d399; font-weight: 700; }
+  .bottom {
+    position: relative; display: flex; align-items: center; gap: 14px;
+    font-size: 19px; color: #8fb0a3; font-weight: 500;
+  }
+  .bottom .dot { color: rgba(255,255,255,0.28); }
+  .bottom .url { color: #cfe6db; }
+  .pill {
+    font-size: 14px; font-weight: 700; letter-spacing: 0.04em;
+    color: #04231a; background: #34d399; border-radius: 999px; padding: 5px 12px;
+  }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+
+  <div class="top">
+    <div class="mark">A</div>
+    <div class="brand">ASOScan</div>
+    <div class="eyebrow">ASO SKILLS</div>
+  </div>
+
+  <div class="mid">
+    <h1>Expert ASO,<br><em>in your AI workflow.</em></h1>
+    <div class="sub">
+      Real keyword volume &amp; difficulty, your app rank, keyword opportunities,
+      competitor &amp; review analysis, and a metadata / ASO-score audit — for
+      Claude, Cursor &amp; any Agent-Skills assistant.
+    </div>
+    <div class="chip"><b>$</b> npx skills add ASOScan/aso-skills</div>
+  </div>
+
+  <div class="bottom">
+    <span class="pill">9 SKILLS</span>
+    <span>2 work with no API key</span>
+    <span class="dot">·</span>
+    <span>powered by the ASOScan API</span>
+    <span class="dot">·</span>
+    <span>MIT</span>
+    <span class="dot">·</span>
+    <span class="url">github.com/ASOScan/aso-skills</span>
+  </div>
+</body>
+</html>
