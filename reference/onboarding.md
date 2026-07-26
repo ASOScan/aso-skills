@@ -7,7 +7,7 @@ to call the API without a key.
 ## 1. Create an ASOScan account (or sign in)
 
 Sign up at
-**<https://asoscan.com/register?utm_source=github&utm_medium=skill&utm_campaign=aso-skills&utm_content=onboarding>**
+**<https://asoscan.com/auth/register?utm_source=github&utm_medium=skill&utm_campaign=aso-skills&utm_content=onboarding>**
 and add at least one app (paste your App Store or Google Play URL). The API is
 **owner-scoped** — it works on the apps in your account, so you need one tracked
 app to do anything useful.

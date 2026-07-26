@@ -129,7 +129,7 @@ npx skills add ASOScan/aso-skills --skill keyword-intelligence keyword-spy
 ## Set up your key (once)
 
 1. Create an account and add an app:
-   [asoscan.com/register](https://asoscan.com/register?utm_source=github&utm_medium=skill&utm_campaign=aso-skills&utm_content=readme)
+   [asoscan.com/auth/register](https://asoscan.com/auth/register?utm_source=github&utm_medium=skill&utm_campaign=aso-skills&utm_content=readme)
 2. **Settings → API access → Create key** (choose *read* or *read + write*).
    Copy it — it's shown only once.
 3. Export it:
