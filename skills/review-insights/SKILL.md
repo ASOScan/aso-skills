@@ -2,7 +2,7 @@
 name: review-insights
 description: When the user wants to understand what users say about an app using ASOScan — overall review sentiment plus the top topics, feature requests, and bugs mentioned, and the raw reviews behind them. Also use when the user mentions "what are users saying", "review sentiment", "top complaints", "what features are people asking for", "what bugs are mentioned", or "summarize my reviews". Works for your app or a tracked competitor.
 metadata:
-  version: 1.1.0
+  version: 1.2.0
 ---
 
 # Review Insights
@@ -39,6 +39,9 @@ is high, note that more reviews are still being analyzed.
 
 - **Sentiment** — the positive/neutral/negative split + `averageScore` (pair with
   the rating trajectory from **competitor-analysis** for trend).
+  `averageScore` runs **−1.00 (very negative) to +1.00 (very positive)**, 0 being
+  neutral. **Always print it with that range** — a bare "0.38" reads as a bad score
+  when it is in fact mildly positive.
 - **Themes** — cluster `topTopics`/`topFeatureRequests`/`topBugs` into *love*,
   *friction*, and *requests*, ranked by `count`.
 - **Actionability** — for the top 3, name the concrete response: bugs → engineering;
@@ -52,7 +55,7 @@ is high, note that more reviews are still being analyzed.
 ```
 ### Review insights — {App}   ·  credits left: {remaining}
 
-**Sentiment:** {positive}/{neutral}/{negative}  (avg {averageScore})  ·  {totalAnalyzed} analyzed
+**Sentiment:** {positive}/{neutral}/{negative}  (avg {averageScore} on −1 to +1)  ·  {totalAnalyzed} analyzed
 
 **Love**              | **Friction**            | **Most-requested**
 - {topic} ({count})   | - {bug} ({count})       | - {request} ({count})

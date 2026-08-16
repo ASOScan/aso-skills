@@ -2,7 +2,7 @@
 name: metadata-audit
 description: When the user wants to audit or improve an app's store listing metadata using ASOScan — the current title, subtitle/short description, description, keyword field, and what's-new, plus ASOScan's ASO score and recommendations and the change history — then draft specific, honest improvements within the platform's character limits. Also use when the user mentions "audit my listing", "improve my metadata", "optimize my title/subtitle/description", "what's my ASO score", "rewrite my app store copy", or "what changed in my listing". For choosing which keywords to target, see keyword-opportunities.
 metadata:
-  version: 1.1.0
+  version: 1.2.0
 ---
 
 # Metadata Audit
@@ -65,12 +65,25 @@ emphasis toward the lowest pillar. Grade Title/Subtitle, Description, Keywords,
 Ratings, Conversion (`conversionIsProxy: true` = estimated until store analytics are
 connected), and Freshness.
 
+**Always print a score with its denominator.** `overall` is out of **100**;
+`metadata`, `ratings` and `conversion` are each out of **25**. A bare "metadata 25"
+reads as a failing grade when it is in fact a perfect one.
+
+**Know what the pillars measure.** `metadata` scores **completeness and limit
+compliance** — is each indexed field present, and does it use a sensible share of its
+character budget. It does **not** judge whether the copy is any good: nothing checks that
+the title carries a term users search, or that the subtitle states a benefit rather than a
+slogan. `conversion` is the same shape — it counts assets like screenshots and cannot see
+what is in them. So **never tell the user a 25/25 means their copy is optimal**; say the
+fields are complete and in-limit, then do the quality read yourself in the field-by-field
+section below. That judgement is the value you add on top of the score.
+
 ## Output template
 
 ```
 ### Metadata audit — {App} · {platform} ({country})   ·  credits left: {remaining}
 
-**ASO score: {overall} ({grade})**  (metadata {metadata} · ratings {ratings} · conversion {conversion})
+**ASO score: {overall}/100 ({grade})**  (metadata {metadata}/25 · ratings {ratings}/25 · conversion {conversion}/25)
 
 **Top 3 quick wins (<1h):** 1) {exact new text + char count}  2) …
 

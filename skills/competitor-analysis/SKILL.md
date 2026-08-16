@@ -2,7 +2,7 @@
 name: competitor-analysis
 description: When the user wants to compare an app against its tracked competitors using ASOScan — keyword overlap and gaps, which store category each competitor uses, category chart rank over time, and rating trajectory — or add a new rival by store URL. Also use when the user mentions "compare my app to competitors", "who am I competing with", "add this competitor", "how do I stack up", "am I gaining or losing vs them", "what category do my competitors use", or "category ranking". For a competitor's full keyword list, see keyword-spy.
 metadata:
-  version: 1.1.0
+  version: 1.2.0
 ---
 
 # Competitor Analysis
@@ -45,6 +45,11 @@ reads on that competitor's app id (it must be a tracked competitor).
   If rivals cluster in a different (or less crowded) category, flag it — category
   choice is an ASO lever.
 - **Rank momentum** — climbing or sliding over the window (`points`)?
+  A point exists only for a date that was measured, so `rank: null` means **measured and
+  not in the tracked chart** — say "not charting yet", never "no data". Unmeasured dates
+  are absent, so a 30-day window may return fewer than 30 points. An app whose points are
+  all null is not broken data: it hasn't broken into the chart, and volume/authority is
+  the lever, not metadata.
 - **Rating gap** — average `rating` and its direction vs competitors.
 - **Keyword gap** (highest-leverage) — relevant terms rivals win that you don't
   target (from keyword-spy), ranked by relevance × volume.

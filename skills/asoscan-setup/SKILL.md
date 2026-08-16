@@ -2,7 +2,7 @@
 name: asoscan-setup
 description: When the user wants to set up or configure ASOScan — get their API access key, set up webhooks (including sending alerts to Slack or Microsoft Teams), or connect their Google Play Console (Android) or App Store Connect (iOS) account. Also use when the user mentions "get my API key", "create an API key", "set up webhooks", "send alerts to Slack", "alerts in Teams", "connect my Play Console", "connect my App Store account", "connect my app", or "how do I hook this up". This skill works with no API key (it helps you get one). It walks you through the ASOScan side and looks up the live third-party steps.
 metadata:
-  version: 1.1.0
+  version: 1.2.0
 ---
 
 # ASOScan Setup & Connect
@@ -55,11 +55,16 @@ API key setup
    ```powershell
    setx ASOSCAN_API_KEY "asosk_live_…"        # Windows PowerShell — open a new terminal after
    ```
-4. Verify (either works):
+4. Verify — a `200` with your usage means you're set:
    ```bash
-   bash scripts/asoscan-check.sh              # from the skill pack, or:
    curl -s "https://asoscan.com/api/public/v1/usage" -H "Authorization: Bearer $ASOSCAN_API_KEY"
    ```
+   A `401` names what went wrong (no key sent, wrong prefix, unknown or revoked key);
+   a `403` means the plan doesn't include API access.
+
+   Working from a clone of this repo? `bash scripts/asoscan-check.sh` does the same
+   thing. It ships with the repo, not inside an installed skill, so the relative path
+   only resolves from the repo root — use the `curl` above otherwise.
 
 If the **API access** section isn't visible, the plan may not include API access —
 see **asoscan.com/pricing**. Once the key works, come back and use any data skill.
