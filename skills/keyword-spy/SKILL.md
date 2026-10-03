@@ -2,7 +2,7 @@
 name: keyword-spy
 description: When the user wants to reverse-look-up every keyword an app ranks for using ASOScan's keyword-spy — the full set of terms an app appears under (community rank pool plus discovered terms), flagged by whether you already track them. Also use when the user mentions "what keywords does this app rank for", "reverse keyword lookup", "spy on a competitor's keywords", "what search terms is X winning", or "which of their keywords am I missing". For the fuller competitive picture, see competitor-analysis.
 metadata:
-  version: 1.1.0
+  version: 1.3.0
 ---
 
 # Keyword Spy
@@ -16,11 +16,24 @@ ASOScan, and mine it for real terms you should be targeting too.
 - "Spy on `<competitor>`'s keywords."
 - "Which of their terms am I not tracking?"
 
-## Calling the ASOScan API
+## Getting the data (two modes)
 
-Base `https://asoscan.com/api/public/v1` · header `Authorization: Bearer $ASOSCAN_API_KEY`.
-JSON, camelCase. The API is **owner-scoped** — it only sees the user's own apps +
-their tracked competitors. If the key is unset, hand off to **asoscan-setup**.
+Pick the first mode that applies, then follow the steps below.
+
+1. **ASOScan tools are connected** (the ASOScan plugin or connector in ChatGPT or Claude, or any MCP client): use the tool named in the table. Do not ask for an API key and do not run `curl`. Tool results have the same fields as the API responses below, and a list comes back inside `items`. If a tool answers with a message instead of data (reconnect, credits used up, plan limit, "preparing"), pass that message on and stop.
+2. **No tools, but you can run shell commands and `ASOSCAN_API_KEY` is set**: make the API call in the table. Base `https://asoscan.com/api/public/v1`, header `Authorization: Bearer $ASOSCAN_API_KEY`, JSON with camelCase fields. Never print the key. Capture the HTTP status and handle errors as described at the bottom.
+3. **Neither**: hand off to **asoscan-setup**. It explains how to connect ASOScan in ChatGPT or Claude, or how to create an API key.
+
+ASOScan only sees the apps in the user's own account and the competitors they track. Every call uses API credits (failed calls are free). Before a call that costs more than 2 API credits, or one that uses AI, tell the user the cost and wait for a yes. Before any call that changes data, ask first.
+
+| Step | Tool (connected) | API call (key) | API credits |
+|---|---|---|---|
+| Find the app | `list_my_apps` | `GET /apps` | 1 |
+| Is the rival tracked? | `get_competitors` | `GET /apps/{id}/competitors` | 1 |
+| Add the rival by store link (changes data) | `add_competitor` | `POST /apps/{id}/competitors` with `{ "storeUrl": "..." }` | 2, ask first |
+| Spy | `spy_competitor_keywords` | `GET /apps/{id}/keyword-spy?country=` | 2 |
+
+## Steps
 
 1. **Find the app** — `GET /apps` → use the `id`.
    - **Own app** → spy it directly.

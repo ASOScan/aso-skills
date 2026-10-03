@@ -1,8 +1,8 @@
 ---
 name: review-insights
-description: When the user wants to understand what users say about an app using ASOScan — overall review sentiment plus the top topics, feature requests, and bugs mentioned, and the raw reviews behind them. Also use when the user mentions "what are users saying", "review sentiment", "top complaints", "what features are people asking for", "what bugs are mentioned", or "summarize my reviews". Works for your app or a tracked competitor.
+description: When the user wants to understand what users say about an app using ASOScan — overall review sentiment plus the top topics, feature requests, and bugs mentioned, and the raw reviews behind them. Also use when the user mentions "what are users saying", "review sentiment", "top complaints", "what features are people asking for", "what bugs are mentioned", or "summarize my reviews". Also use to draft a reply to a review and, after the user approves the exact text, post it ("reply to this review", "write a reply"). Works for your app or a tracked competitor.
 metadata:
-  version: 1.2.0
+  version: 1.3.0
 ---
 
 # Review Insights
@@ -16,10 +16,26 @@ feel, what they keep asking for, and what's breaking.
 - "Top complaints / feature requests / bugs."
 - "Summarize the latest reviews." (also for a tracked competitor)
 
-## Calling the ASOScan API
+## Getting the data (two modes)
 
-Base `https://asoscan.com/api/public/v1` · header `Authorization: Bearer $ASOSCAN_API_KEY`.
-JSON, camelCase. If the key is unset, hand off to **asoscan-setup**.
+Pick the first mode that applies, then follow the steps below.
+
+1. **ASOScan tools are connected** (the ASOScan plugin or connector in ChatGPT or Claude, or any MCP client): use the tool named in the table. Do not ask for an API key and do not run `curl`. Tool results have the same fields as the API responses below, and a list comes back inside `items`. If a tool answers with a message instead of data (reconnect, credits used up, plan limit, "preparing"), pass that message on and stop.
+2. **No tools, but you can run shell commands and `ASOSCAN_API_KEY` is set**: make the API call in the table. Base `https://asoscan.com/api/public/v1`, header `Authorization: Bearer $ASOSCAN_API_KEY`, JSON with camelCase fields. Never print the key. Capture the HTTP status and handle errors as described at the bottom.
+3. **Neither**: hand off to **asoscan-setup**. It explains how to connect ASOScan in ChatGPT or Claude, or how to create an API key.
+
+ASOScan only sees the apps in the user's own account and the competitors they track. Every call uses API credits (failed calls are free). Before a call that costs more than 2 API credits, or one that uses AI, tell the user the cost and wait for a yes. Before any call that changes data, ask first.
+
+| Step | Tool (connected) | API call (key) | API credits |
+|---|---|---|---|
+| Find the app | `list_my_apps` | `GET /apps` | 1 |
+| Insights | `get_review_insights` | `GET /apps/{id}/reviews/insights` | 1 |
+| Raw reviews | `get_reviews` | `GET /apps/{id}/reviews?page=1&pageSize=20&rating=&sort=newest` | 1 |
+| Saved reply templates | `list_reply_templates` | `GET /apps/{id}/reviews/reply-templates` | 1 |
+| Draft a reply (AI) | `draft_review_reply` | `POST /apps/{id}/reviews/{reviewId}/reply-draft` with `{ "instructions": "...", "autoSelectKeyword": true }` | 2 + 1 AI credit, say the cost first |
+| Post a reply (goes to the store) | `post_review_reply` | `POST /apps/{id}/reviews/{reviewId}/reply` with `{ "text": "..." }` | 2, exact text and a clear yes first |
+
+## Steps
 
 1. **Find the app** — `GET /apps` → use the `id`. For a rival, it must be a tracked
    competitor first (see **competitor-analysis**).
@@ -63,6 +79,18 @@ is high, note that more reviews are still being analyzed.
 **Top 3 to act on:** 1) {theme} → {response}  2) …
 **Evidence:** > "{verbatim review body}" — {rating}★
 ```
+
+## Replying to a review
+
+Use this when the user wants a reply written or posted for one of their reviews.
+
+1. Get the review id from the raw reviews call. If the user has saved templates, read them and offer one as a starting point.
+2. Draft: tell the user the draft costs 2 API credits and 1 AI credit, then draft. The draft is saved in ASOScan only. Nothing goes to the store. The answer has `replyText` (and `keywordUsed` when the draft uses one of their keywords).
+3. Show the full reply text and let the user edit it.
+4. Post only after the user says yes to that exact text. Send exactly the approved text. If the answer says the app has no store connection, tell the user to connect App Store Connect or Google Play Console in ASOScan (the answer includes the link) and stop.
+5. Never post a reply the user has not approved word for word, and never post several replies from one yes.
+
+Replies help users and show the app is cared for. They are not a search-ranking signal, so never present them as a way to rank higher.
 
 ## Errors, credits & honesty
 

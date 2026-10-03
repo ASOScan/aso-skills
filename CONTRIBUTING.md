@@ -26,7 +26,7 @@ name: keyword-intelligence          # lowercase-hyphens, <=64 chars, no "claude"
 description: >-                      # third person; what it does + WHEN to use it + trigger phrases; <=1024 chars
   Researches keyword volume, difficulty, rank and rank history for an app...
 metadata:
-  version: 1.1.0
+  version: 1.3.0
 ---
 
 # Keyword Intelligence
@@ -36,10 +36,12 @@ Framework -> the exact API call(s) -> scoring rubric -> output template.
 
 Rules that keep the pack consistent:
 
-1. **Self-contained.** A skill inlines the exact API calls it needs (base URL, its endpoints,
-   response fields, error + credit handling) and reads the key from `ASOSCAN_API_KEY`. No `../`
-   links to other skills — each one installs and runs on its own. (The `reference/` folder is the
-   human API reference, not a runtime dependency.)
+1. **Self-contained and dual-mode.** A skill names, for each step, the ASOScan MCP tool and the
+   matching API call (base URL, endpoint, response fields, credits). With the tools connected it
+   uses them; otherwise it calls the API with the key from `ASOSCAN_API_KEY`; with neither it
+   hands off to `asoscan-setup`. No `../` links to other skills. Skills carry task logic only:
+   product facts (features, plans, prices, connection wizard details) are never copied into a
+   skill. (The `reference/` folder is the human API reference, not a runtime dependency.)
 2. **The `description` earns the skill.** It's how the agent decides whether to use it — write it in
    the third person with concrete trigger phrases, and say when *not* to use it.
 3. **Keep `SKILL.md` focused** (aim for under ~500 lines). Put long tables in `reference/`.

@@ -1,0 +1,12 @@
+{
+  "skills": ["asoscan-router", "keyword-opportunities"],
+  "query": "Best keywords for my app?",
+  "setup": "The ASOScan plugin or connector is connected (ChatGPT, Claude or Claude Code) and ASOSCAN_API_KEY is NOT set. At least one app in the ASOScan account.",
+  "expected_behavior": [
+    "Calls list_my_apps, then find_keyword_opportunities, and never asks for an API key or runs curl",
+    "Reads the opportunities from the tool result (a list arrives inside items) and ranks them by opportunityScore",
+    "Asks before calling research_keyword and states its cost of 8 API credits",
+    "Asks before calling track_keywords and only tracks the terms the user picked",
+    "Presents volume and difficulty as plain numbers and promises no rank"
+  ]
+}

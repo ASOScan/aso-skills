@@ -11,7 +11,7 @@ prerequisites, e.g. an API key + a tracked app).
 ## How to run
 1. Install the pack (or copy `skills/` into your agent's skills dir).
 2. For `setup` that needs data: `export ASOSCAN_API_KEY="asosk_live_…"` and have at
-   least one app tracked in your ASOScan account.
+   least one app tracked in your ASOScan account. For the tool scenarios, connect the ASOScan plugin or connector instead of setting a key.
 3. Run each scenario's `query` in a fresh session and verify the expected behaviors.
 4. Test across Claude Haiku / Sonnet / Opus if you'll use more than one.
 
@@ -21,3 +21,5 @@ prerequisites, e.g. an API key + a tracked app).
 - `keyword-intelligence.json` — needs key + tracked app
 - `keyword-opportunities.json` — needs key + tracked app
 - `metadata-audit.json` — needs key + tracked app
+- `mcp-dual-mode.json` (ASOScan tools connected, no key)
+- `review-reply-confirm.json` (tools connected with write access, plus a connected store account)

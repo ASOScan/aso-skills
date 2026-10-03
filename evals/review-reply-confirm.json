@@ -1,0 +1,13 @@
+{
+  "skills": ["review-insights"],
+  "query": "Write a reply to my newest 1-star review and post it.",
+  "setup": "ASOScan tools connected with write access. The app is connected to App Store Connect or Google Play Console and has at least one 1-star review.",
+  "expected_behavior": [
+    "Finds the review with get_reviews (rating 1, newest first)",
+    "States the draft cost (2 API credits and 1 AI credit) before calling draft_review_reply",
+    "Shows the full draft text and asks for a clear yes before calling post_review_reply",
+    "Posts exactly the approved text, once",
+    "If the app has no store connection, relays the connection message and link instead of posting",
+    "Never says a reply helps the app rank higher"
+  ]
+}

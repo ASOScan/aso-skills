@@ -1,8 +1,8 @@
-# ASOScan — ASO Skills for Claude, Cursor & any Agent-Skills client
+# ASOScan: App Store Optimization in ChatGPT, Claude and any AI agent
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 ![Skills: 9](https://img.shields.io/badge/skills-9-047857)
-![Works with: Claude · Cursor · any Agent Skills](https://img.shields.io/badge/works%20with-Claude%20%C2%B7%20Cursor%20%C2%B7%20any%20Agent%20Skills-047857)
+![Works with: Claude · ChatGPT · Cursor · any Agent Skills](https://img.shields.io/badge/works%20with-Claude%20%C2%B7%20ChatGPT%20%C2%B7%20Cursor%20%C2%B7%20any%20Agent%20Skills-047857)
 ![ASO data by ASOScan](https://img.shields.io/badge/ASO%20data-ASOScan-047857)
 
 <p align="center">
@@ -10,6 +10,24 @@
 </p>
 
 <p align="center"><em>Real keyword volume, difficulty &amp; competitors — from inside your AI coding agent.</em></p>
+
+## What it is
+
+ASOScan is App Store Optimization (ASO) software for iOS and Android apps, built and run by one app developer. This repo is the ASOScan plugin for ChatGPT and Claude and a skill pack for coding agents. Connect your ASOScan account and ask about your own apps in plain words.
+
+- **How to rank my app higher on the app store**, or how to improve app ranking on Google Play: your ASO score, ASOScan's recommendations and what to fix first.
+- **Best keywords for my app**: app store keyword research with search volume and difficulty, keyword opportunities you could rank for, and tracking for the ones you pick.
+- **Why is my app not showing in search**: where you rank for each tracked keyword and how the rank moved day by day.
+- **Check my app store listing**: your current title, subtitle, keywords and description, what changed, and drafts for other languages.
+- **What keywords does my competitor rank for**: add a competitor by store link and see its keywords, category rank and rating history.
+- **Summarize my app reviews**: sentiment, topics, bugs and feature requests, and AI reply drafts. A reply goes to the store only after you approve the exact text.
+
+Good ASO improves organic rankings, and ASOScan helps you rank better. It does not promise a rank, does not publish listing text to the stores, and has no download or revenue data.
+
+<p align="center">
+  <img src="assets/rank.webp" alt="ASOScan keyword rank over time for a tracked keyword" width="420">
+  <img src="assets/reply.webp" alt="ASOScan review reply draft before it is posted" width="300">
+</p>
 
 ## ⚡ Quickstart
 
@@ -20,7 +38,7 @@ npx skills add ASOScan/aso-skills
 Then just ask your agent, in plain language:
 
 - *"How does App Store search ranking work?"* → answered instantly, **no API key needed**
-- *"Where do I rank for my keywords, and which should I target next?"* → [add an API key](#set-up-your-key-once) (included on any plan; 7-day free trial)
+- *"Where do I rank for my keywords, and which should I target next?"* → [add an API key](#set-up-an-api-key-coding-agents-without-the-connector) (included on any plan; 7-day free trial)
 
 ⭐ **Useful? [Star the repo](https://github.com/ASOScan/aso-skills)** — it helps other developers find these skills.
 
@@ -94,23 +112,31 @@ estimates, Apple's secondary category, or generating listing copy without your d
 
 ## Requirements
 
-- An **ASOScan account** with **API access** and an **API key** (`asosk_live_…`).
-  API access is included on the plans listed at
-  [asoscan.com/pricing](https://asoscan.com/pricing?utm_source=github&utm_medium=skill&utm_campaign=aso-skills&utm_content=readme);
-  higher plans get more monthly credits.
-- At least one **app tracked** in your ASOScan account (the API is owner-scoped —
-  it works on your apps and their tracked competitors).
+- An **ASOScan account** with at least one app (new accounts start with a 7-day free trial, no card needed).
+- Either the **ASOScan plugin or connector** (ChatGPT, Claude, Claude Code), or an **API key** (`asosk_live_…`) for other agents. API access depends on your plan: see [asoscan.com/pricing](https://asoscan.com/pricing?utm_source=github&utm_medium=skill&utm_campaign=aso-skills&utm_content=readme).
 - An Agent-Skills-compatible client that can make HTTP requests (Claude Code with
   Bash is the reference environment).
 
-The six **data** skills need your API key. The **aso-fundamentals** skill works
-with no key — it gives general ASO best practices without touching your data.
+The **data** skills need a connection or a key. **aso-fundamentals** and **asoscan-setup** work with neither.
 
 ---
 
 ## Install
 
-**Claude Code (CLI):**
+**ChatGPT:** add **ASOScan** from the plugin directory, then sign in to ASOScan when ChatGPT asks.
+
+**Claude (claude.ai, desktop, Cowork):** add **ASOScan** from the directory, then sign in.
+
+**Claude Code:**
+
+```bash
+claude plugin marketplace add ASOScan/aso-skills
+claude plugin install asoscan@asoscan
+```
+
+The plugin brings the skills and the ASOScan connector (`https://asoscan.com/mcp`); Claude Code asks you to sign in on first use.
+
+**Any coding agent (skills only, API key):**
 
 ```bash
 npx skills add ASOScan/aso-skills
@@ -118,15 +144,13 @@ npx skills add ASOScan/aso-skills
 npx skills add ASOScan/aso-skills --skill keyword-intelligence keyword-spy
 ```
 
-**Cursor:** Settings → Rules → Add Rule → Remote Rule (GitHub) →
-`https://github.com/ASOScan/aso-skills`
+**Cursor:** Settings → Rules → Add Rule → Remote Rule (GitHub) → `https://github.com/ASOScan/aso-skills`
 
-**Manual:** copy `skills/*` into your client's skills directory
-(e.g. `.claude/skills/` or `~/.cursor/skills/`).
+**Manual:** copy `skills/*` into your client's skills directory (for example `.claude/skills/`).
 
 ---
 
-## Set up your key (once)
+## Set up an API key (coding agents without the connector)
 
 1. Create an account and add an app:
    [asoscan.com/auth/register](https://asoscan.com/auth/register?utm_source=github&utm_medium=skill&utm_campaign=aso-skills&utm_content=readme)
@@ -146,7 +170,7 @@ Full walkthrough: [`reference/onboarding.md`](reference/onboarding.md).
 
 ## How it works
 
-- Each skill is **self-contained** — it inlines the exact API calls it needs (base
+- Each skill is **self-contained**: it names the ASOScan tool and the exact API call for each step (base
   URL, endpoints, response fields, error + credit handling) and reads your key from
   the `ASOSCAN_API_KEY` environment variable, so any skill installs and runs on its
   own. The [`reference/`](reference/) folder is the full human API reference, and
@@ -156,6 +180,18 @@ Full walkthrough: [`reference/onboarding.md`](reference/onboarding.md).
   as expensive and cached within a session. `GET /usage` (free) shows what's left.
 - **Owner-scoped:** to analyze a rival, the skill adds it as a competitor first,
   then reads its data.
+
+## What this plugin sends
+
+- With the connector: requests go to `https://asoscan.com/mcp` after you sign in with OAuth. You can disconnect any time in ASOScan under Settings → Connected AI apps.
+- With an API key: the skills read `ASOSCAN_API_KEY` from your environment and send it only to `https://asoscan.com/api/public/v1` in the `Authorization` header. They never print it.
+- Nothing else is sent anywhere. No package contains a credential.
+
+## What's new in 1.3.0
+
+- ChatGPT plugin (`plugin.json`, `mcp.json`) and Claude plugin and marketplace (`.claude-plugin/`, `.mcp.json`) from this one repo.
+- Every data skill works with the ASOScan tools when they are connected, or with an API key when they are not.
+- New: add an app, ASOScan recommendations, review reply drafts and posting (only after you approve the exact text), and listing drafts for other languages.
 
 ## Honesty
 

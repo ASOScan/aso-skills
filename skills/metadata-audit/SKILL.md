@@ -1,8 +1,8 @@
 ---
 name: metadata-audit
-description: When the user wants to audit or improve an app's store listing metadata using ASOScan — the current title, subtitle/short description, description, keyword field, and what's-new, plus ASOScan's ASO score and recommendations and the change history — then draft specific, honest improvements within the platform's character limits. Also use when the user mentions "audit my listing", "improve my metadata", "optimize my title/subtitle/description", "what's my ASO score", "rewrite my app store copy", or "what changed in my listing". For choosing which keywords to target, see keyword-opportunities.
+description: When the user wants to audit or improve an app's store listing metadata using ASOScan — the current title, subtitle/short description, description, keyword field, and what's-new, plus ASOScan's ASO score and recommendations and the change history — then draft specific, honest improvements within the platform's character limits. Also use when the user mentions "audit my listing", "improve my metadata", "optimize my title/subtitle/description", "what's my ASO score", "rewrite my app store copy", or "what changed in my listing", or wants listing text drafted for another language ("translate my listing", "localize my listing"). For choosing which keywords to target, see keyword-opportunities.
 metadata:
-  version: 1.2.0
+  version: 1.3.0
 ---
 
 # Metadata Audit
@@ -15,10 +15,27 @@ specific, within limits, and honest.
 - "Audit / optimize my app listing." · "What's my ASO score and how do I raise it?"
 - "Rewrite my title / subtitle / description." · "What metadata changed recently?"
 
-## Calling the ASOScan API
+## Getting the data (two modes)
 
-Base `https://asoscan.com/api/public/v1` · header `Authorization: Bearer $ASOSCAN_API_KEY`.
-JSON, camelCase. If the key is unset, hand off to **asoscan-setup**.
+Pick the first mode that applies, then follow the steps below.
+
+1. **ASOScan tools are connected** (the ASOScan plugin or connector in ChatGPT or Claude, or any MCP client): use the tool named in the table. Do not ask for an API key and do not run `curl`. Tool results have the same fields as the API responses below, and a list comes back inside `items`. If a tool answers with a message instead of data (reconnect, credits used up, plan limit, "preparing"), pass that message on and stop.
+2. **No tools, but you can run shell commands and `ASOSCAN_API_KEY` is set**: make the API call in the table. Base `https://asoscan.com/api/public/v1`, header `Authorization: Bearer $ASOSCAN_API_KEY`, JSON with camelCase fields. Never print the key. Capture the HTTP status and handle errors as described at the bottom.
+3. **Neither**: hand off to **asoscan-setup**. It explains how to connect ASOScan in ChatGPT or Claude, or how to create an API key.
+
+ASOScan only sees the apps in the user's own account and the competitors they track. Every call uses API credits (failed calls are free). Before a call that costs more than 2 API credits, or one that uses AI, tell the user the cost and wait for a yes. Before any call that changes data, ask first.
+
+| Step | Tool (connected) | API call (key) | API credits |
+|---|---|---|---|
+| Find the app | `list_my_apps` | `GET /apps` | 1 |
+| ASO score | `get_aso_score` | `GET /apps/{id}/aso-score?country=` | 1 |
+| ASOScan recommendations | `get_aso_recommendations` | `GET /apps/{id}/recommendations` | 1 |
+| Current listing text | `get_listing_metadata` | `GET /apps/{id}/metadata?country=` | 1 |
+| Change history | `get_metadata_changelog` | `GET /apps/{id}/metadata/changelog?country=` | 1 |
+| Saved drafts for other languages | `list_localized_drafts` | `GET /apps/{id}/localizations/drafts` | 1 |
+| Draft listing text for another language (AI) | `draft_localized_metadata` | `POST /apps/{id}/localizations/{locale}/draft` | 2 + 1 AI credit, say the cost first |
+
+## Steps
 
 1. **Find the app** — `GET /apps` → note the `id` and `platform` (Apple vs Google —
    the rules differ).
@@ -26,12 +43,13 @@ JSON, camelCase. If the key is unset, hand off to **asoscan-setup**.
    `{ overall, metadata, ratings, conversion, conversionIsProxy, grade, platform,
    recommendations[]{ category, severity, title, description } }` (0–100; severity
    `critical|warning|info`). **Use this as the headline number; don't invent one.**
-3. **Current metadata** — `GET /apps/{id}/metadata?country=` (1 credit) →
+3. **Recommendations** (`get_aso_recommendations` or `GET /apps/{id}/recommendations`) → `{ items[]{ id, status, platform, category, priority, title, why, how, expectedImpact, updatedAt }, generatedAt }`. Lead with the highest priority items and use their `why` and `how` in your field-by-field advice.
+4. **Current metadata** — `GET /apps/{id}/metadata?country=` (1 credit) →
    `{ title, subtitle, promotionalText, keywords, shortDescription, description,
    whatsNew, releaseDate }`. A **404** = nothing captured yet.
-4. **Change history** — `GET /apps/{id}/metadata/changelog?country=` (1 credit) →
+5. **Change history** — `GET /apps/{id}/metadata/changelog?country=` (1 credit) →
    `[{ field, oldValue, newValue, changedAt, oldVersion, newVersion }]`.
-5. **Target keywords** — pull winners from **keyword-opportunities** / **keyword-intelligence**.
+6. **Target keywords** — pull winners from **keyword-opportunities** / **keyword-intelligence**.
 
 ## Platform rules to enforce (Apple/Google official, current)
 
@@ -98,6 +116,17 @@ section below. That judgement is the value you add on top of the score.
 
 Every suggestion must be concrete (exact text + char count) and tied to a real
 keyword or conversion reason. Point the user back to ASOScan to re-score after edits.
+
+## Listing text for another language
+
+Use this when the user wants their listing in another language or country.
+
+1. Read the saved drafts first. If one exists for that locale, show it before writing a new one.
+2. Tell the user a new draft costs 2 API credits and 1 AI credit, then call it with the store locale (for example `de-DE`, `fr-FR`, `es-ES`).
+3. If the answer says ASOScan is preparing the keyword data for that market, nothing was charged. Tell the user to ask again in a minute. Use `force` (the tool's `force` input, or `?force=true`) only when the last "preparing" answer is several minutes old.
+4. Show each variant with its character counts against the platform limits above. The draft is saved in ASOScan. ASOScan does not publish listing text to the stores; the user copies it into App Store Connect or Google Play Console.
+
+Describe the benefit only as Apple documents it: localized name, subtitle and keywords are searchable in every storefront that supports that language, so more people can find the app. Never say a translation raises keyword rank.
 
 ## Errors, credits & honesty
 

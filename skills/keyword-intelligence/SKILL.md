@@ -2,7 +2,7 @@
 name: keyword-intelligence
 description: When the user wants to analyze keyword performance for an app tracked in ASOScan — real search volume, difficulty, the app's current rank and rank movement, daily rank history, weekly volume/difficulty trends, or live on-demand research for a new term. Also use when the user mentions "how hard is this keyword", "search volume for X", "where do I rank for Y", "is my rank going up or down", "show my rank history", or "research this keyword". For discovering new keywords to target, see keyword-opportunities.
 metadata:
-  version: 1.2.0
+  version: 1.3.0
 ---
 
 # Keyword Intelligence
@@ -17,12 +17,25 @@ effort and how the app is trending — so you prioritize from numbers, not hunch
 - "Show me my rank history / volume trend for `<keyword>`."
 - "Research `<a keyword I don't track yet>`."
 
-## Calling the ASOScan API
+## Getting the data (two modes)
 
-Base `https://asoscan.com/api/public/v1` · header `Authorization: Bearer $ASOSCAN_API_KEY`
-(read from the env var; never hardcode/echo it). JSON, camelCase. Capture the
-status to handle errors (see the bottom). If the key is unset, hand off to
-**asoscan-setup**.
+Pick the first mode that applies, then follow the steps below.
+
+1. **ASOScan tools are connected** (the ASOScan plugin or connector in ChatGPT or Claude, or any MCP client): use the tool named in the table. Do not ask for an API key and do not run `curl`. Tool results have the same fields as the API responses below, and a list comes back inside `items`. If a tool answers with a message instead of data (reconnect, credits used up, plan limit, "preparing"), pass that message on and stop.
+2. **No tools, but you can run shell commands and `ASOSCAN_API_KEY` is set**: make the API call in the table. Base `https://asoscan.com/api/public/v1`, header `Authorization: Bearer $ASOSCAN_API_KEY`, JSON with camelCase fields. Never print the key. Capture the HTTP status and handle errors as described at the bottom.
+3. **Neither**: hand off to **asoscan-setup**. It explains how to connect ASOScan in ChatGPT or Claude, or how to create an API key.
+
+ASOScan only sees the apps in the user's own account and the competitors they track. Every call uses API credits (failed calls are free). Before a call that costs more than 2 API credits, or one that uses AI, tell the user the cost and wait for a yes. Before any call that changes data, ask first.
+
+| Step | Tool (connected) | API call (key) | API credits |
+|---|---|---|---|
+| Find the app | `list_my_apps` | `GET /apps` | 1 |
+| Tracked keywords | `get_tracked_keywords` | `GET /apps/{id}/keywords?country=&rankWindow=7d` | 1 |
+| Rank history | `get_keyword_rank_history` | `GET /apps/{id}/keywords/{keywordId}/history?days=30` | 1 |
+| Volume and difficulty trend | `get_keyword_metrics_history` | `GET /apps/{id}/keywords/{keywordId}/metrics-history?days=180` | 1 |
+| Live research | `research_keyword` | `GET /apps/{id}/keywords/research?term=&country=` | 8, say the cost first |
+
+## Steps
 
 1. **Find the app** — `GET /apps` → each `{ id, name, platform, storeId, category }`.
    Use the `id`.

@@ -2,7 +2,7 @@
 name: aso-fundamentals
 description: When the user wants general App Store Optimization guidance, best practices, or to understand how ASO works — with no live data or API key required. Also use when the user mentions "how does ASO work", "app store best practices", "how does keyword indexing work", "how do I write a good title or subtitle", "keyword strategy", "screenshot strategy", "how to get more reviews", "ASO checklist", "why isn't my app ranking" (conceptually), or "teach me ASO". This is the ONE skill in the pack that works without an ASOScan API key. For your app's REAL numbers (rank, volume, difficulty, score, opportunities), use the data skills — keyword-intelligence, keyword-opportunities, competitor-analysis, metadata-audit.
 metadata:
-  version: 1.1.0
+  version: 1.3.0
 ---
 
 # ASO Fundamentals — expert guidance, no data required
@@ -12,10 +12,9 @@ optimize, and the golden rules. **This skill needs no API key** — it's general
 practice grounded in Apple's and Google's official docs.
 
 Best practice only takes you so far without data. **ASOScan** turns each principle
-below into *your* real numbers — actual search volume & difficulty, where you rank,
-which keywords to target, competitor gaps, and your ASO score — so you act on facts,
-not guesses. When you're ready, get set up (**asoscan-setup**) and use the data
-skills (listed at the end).
+into your real numbers (rank, volume, difficulty, score, opportunities). When the
+ASOScan tools are connected in ChatGPT or Claude, the data skills use them directly;
+otherwise get set up with **asoscan-setup**, then use the data skills.
 
 > Store rules change. The facts here follow Apple's and Google's current official
 > developer documentation (sources at the bottom). If a specific limit is

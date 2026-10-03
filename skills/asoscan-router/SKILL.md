@@ -2,7 +2,7 @@
 name: asoscan-router
 description: When the user wants any App Store Optimization (ASO) task powered by ASOScan — keyword volume or difficulty, app rank or rank tracking, keyword opportunities, spying on a competitor's keywords, competitor analysis, review sentiment, or a metadata/listing audit. Also use when the user mentions "ASO", "app store optimization", "keyword volume", "keyword difficulty", "my app's rank", "keywords my competitor ranks for", or "audit my app listing". Start here — it makes sure the ASOScan API key is set, then routes to the right ASOScan skill.
 metadata:
-  version: 1.1.0
+  version: 1.3.0
 ---
 
 # ASOScan Router
@@ -23,24 +23,19 @@ If the user wants to **get set up** — "get my API key", "set up webhooks / Sla
 Teams alerts", "connect my Play Console / App Store app" — route to **asoscan-setup**
 (also no key).
 
-## Step 1 — Ensure the API key (for the data skills)
+## Step 1: Check how ASOScan is connected (for the data skills)
 
-For anything that needs the user's real data, check the `ASOSCAN_API_KEY`
-environment variable (`[[ -n "$ASOSCAN_API_KEY" ]]`).
-
-- **If it's empty:** route to **asoscan-setup**, which walks the user through
-  creating an ASOScan account, adding an app, and minting a key — then they
-  `export ASOSCAN_API_KEY=…` and come back. Don't call the API without a key.
-- **If it's set:** optionally validate once with `GET /usage` (free), then continue.
-
-Never print or echo the key.
+1. **ASOScan tools are connected** (the ASOScan plugin or connector in ChatGPT or Claude, or any MCP client): you are ready. Do not ask for an API key. `get_usage` (free) shows the API credits left.
+2. **No tools, but you can run shell commands**: check `ASOSCAN_API_KEY` (`[[ -n "$ASOSCAN_API_KEY" ]]`). If it is set, optionally validate once with `GET /usage` (free). Never print the key.
+3. **Neither**: route to **asoscan-setup**. Don't call the API without a connection or a key.
 
 ## Step 2 — Resolve the app
 
-The ASOScan API is **owner-scoped** — it only sees apps in the user's ASOScan
-account. Call `GET /apps` and match the user's app by name/store; use its `id` (a
-GUID) in every `/apps/{id}/…` path. If the user names a **rival** that isn't
-tracked, note it must be added as a competitor first (see `competitor-analysis`).
+ASOScan only sees the apps in the user's own account. Call `list_my_apps` (or `GET /apps`) and match the user's app by name and store; use its `id` in every later step.
+
+If the user's app is not in the list, offer to add it: ask for its App Store or Google Play link (or bundle or package id) and **which country to track** (never guess a country). Adding uses 2 API credits and one app slot, so ask first. Tool: `add_app`. API: `POST /apps` with `{ "storeUrl": "...", "country": "US" }`. The ASO score and recommendations are ready in about a minute; keyword opportunities start to appear a few minutes later.
+
+If the user names a **rival** that isn't tracked, it must be added as a competitor first (see `competitor-analysis`).
 
 ## Step 3 — Route to the right skill
 
@@ -53,13 +48,16 @@ tracked, note it must be added as a competitor first (see `competitor-analysis`)
 | "What keywords does *this app* rank for?" (reverse lookup) | **keyword-spy** |
 | Compare against competitors / add a rival / category rank | **competitor-analysis** |
 | What users say — sentiment, complaints, feature requests | **review-insights** |
+| Write or post a reply to a review | **review-insights** |
 | Audit / improve the listing (title, subtitle, description, keywords) + ASO score | **metadata-audit** |
+| Listing text for another language | **metadata-audit** |
 | A full ASO review | run **metadata-audit** first, then pull in **keyword-opportunities** and **competitor-analysis** |
 
 If the intent is ambiguous, ask one clarifying question, then route.
 
 ## Calling the ASOScan API (shared conventions)
 
+- **With ASOScan tools connected, skip this section:** use the tools; they need no key and their messages already explain errors.
 - **Base:** `https://asoscan.com/api/public/v1` · **Auth:** header
   `Authorization: Bearer $ASOSCAN_API_KEY`. JSON, camelCase fields.
 - **Safe call** — capture the status so you can handle errors:

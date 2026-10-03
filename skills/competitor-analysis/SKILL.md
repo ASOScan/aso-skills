@@ -2,7 +2,7 @@
 name: competitor-analysis
 description: When the user wants to compare an app against its tracked competitors using ASOScan — keyword overlap and gaps, which store category each competitor uses, category chart rank over time, and rating trajectory — or add a new rival by store URL. Also use when the user mentions "compare my app to competitors", "who am I competing with", "add this competitor", "how do I stack up", "am I gaining or losing vs them", "what category do my competitors use", or "category ranking". For a competitor's full keyword list, see keyword-spy.
 metadata:
-  version: 1.2.0
+  version: 1.3.0
 ---
 
 # Competitor Analysis
@@ -16,10 +16,26 @@ behind, and the single biggest lever — using real rank, rating, and keyword da
 - "Add `<store URL>` as a competitor."
 - "What category do my competitors use / how's my category rank vs theirs?"
 
-## Calling the ASOScan API
+## Getting the data (two modes)
 
-Base `https://asoscan.com/api/public/v1` · header `Authorization: Bearer $ASOSCAN_API_KEY`.
-JSON, camelCase. If the key is unset, hand off to **asoscan-setup**.
+Pick the first mode that applies, then follow the steps below.
+
+1. **ASOScan tools are connected** (the ASOScan plugin or connector in ChatGPT or Claude, or any MCP client): use the tool named in the table. Do not ask for an API key and do not run `curl`. Tool results have the same fields as the API responses below, and a list comes back inside `items`. If a tool answers with a message instead of data (reconnect, credits used up, plan limit, "preparing"), pass that message on and stop.
+2. **No tools, but you can run shell commands and `ASOSCAN_API_KEY` is set**: make the API call in the table. Base `https://asoscan.com/api/public/v1`, header `Authorization: Bearer $ASOSCAN_API_KEY`, JSON with camelCase fields. Never print the key. Capture the HTTP status and handle errors as described at the bottom.
+3. **Neither**: hand off to **asoscan-setup**. It explains how to connect ASOScan in ChatGPT or Claude, or how to create an API key.
+
+ASOScan only sees the apps in the user's own account and the competitors they track. Every call uses API credits (failed calls are free). Before a call that costs more than 2 API credits, or one that uses AI, tell the user the cost and wait for a yes. Before any call that changes data, ask first.
+
+| Step | Tool (connected) | API call (key) | API credits |
+|---|---|---|---|
+| Find the app | `list_my_apps` | `GET /apps` | 1 |
+| One app's facts (category, rating) | `get_app_details` | `GET /apps/{id}` | 1 |
+| Competitors | `get_competitors` | `GET /apps/{id}/competitors?country=` | 1 |
+| Add a rival by store link (changes data) | `add_competitor` | `POST /apps/{id}/competitors` with `{ "storeUrl": "..." }` | 2, ask first |
+| Category rank over time | `get_category_rank` | `GET /apps/{id}/category-rank?country=&days=30` | 1 |
+| Rating history | `get_rating_history` | `GET /apps/{id}/rating-history` | 1 |
+
+## Steps
 
 1. **Find the app** — `GET /apps` → `{ id, name, category, rating, … }` (your own
    `category` is here).

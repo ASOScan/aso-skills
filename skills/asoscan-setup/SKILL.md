@@ -1,8 +1,8 @@
 ---
 name: asoscan-setup
-description: When the user wants to set up or configure ASOScan — get their API access key, set up webhooks (including sending alerts to Slack or Microsoft Teams), or connect their Google Play Console (Android) or App Store Connect (iOS) account. Also use when the user mentions "get my API key", "create an API key", "set up webhooks", "send alerts to Slack", "alerts in Teams", "connect my Play Console", "connect my App Store account", "connect my app", or "how do I hook this up". This skill works with no API key (it helps you get one). It walks you through the ASOScan side and looks up the live third-party steps.
+description: When the user wants to set up ASOScan, for example to connect the ASOScan plugin or connector in ChatGPT or Claude, get an API access key for a coding agent, set up webhooks (including Slack or Microsoft Teams alerts), or connect Google Play Console or App Store Connect. Also use when the user mentions "connect ASOScan", "connect my ASOScan account", "get my API key", "set up webhooks", "send alerts to Slack", "connect my Play Console", "connect my App Store account", or "how do I hook this up". Works with no account and no key.
 metadata:
-  version: 1.2.0
+  version: 1.3.0
 ---
 
 # ASOScan Setup & Connect
@@ -23,6 +23,19 @@ set up.
 > **Gating note:** webhooks and connections may not appear in every account —
 > they're rolling out and depend on the plan/feature flags. If the user doesn't see
 > a section, tell them the feature may not be enabled for their account yet.
+
+---
+
+## 0. Connect your ASOScan account (ChatGPT, Claude, Claude Code)
+
+First check: can you call the ASOScan tools (for example `get_usage`)?
+
+- **Yes**: the account is connected. Call `get_usage` (free) and tell the user how many API credits are left. Skip the API key section; it is only for coding agents without the tools.
+- **No, and you are in ChatGPT or Claude**: tell the user to connect their ASOScan account. In ChatGPT, add the ASOScan plugin from the plugin directory. In Claude, add the ASOScan connector or plugin from the directory. Then sign in to ASOScan (or create an account; new accounts start with a free trial) and allow access. Allowing changes lets ASOScan add apps, keywords and competitors, save drafts, and post review replies the user approves.
+- **No, and you are in Claude Code**: `claude plugin marketplace add ASOScan/aso-skills`, then `claude plugin install asoscan@asoscan`, then sign in when Claude Code asks. Or use an API key (section 1).
+- **No, and you are in another coding agent**: use an API key (section 1).
+
+To disconnect an assistant later: ASOScan **Settings → Connected AI apps → Disconnect**.
 
 ---
 
@@ -117,83 +130,21 @@ Honesty: webhooks shorten your reaction time — they are **not** a ranking sign
 
 ---
 
-## 3. Connect your Android app (Google Play Console)
+## 3. Connect Google Play Console or App Store Connect
 
-Connecting Play Console lets ASOScan sync your real reviews (and reply to them),
-ratings, and listing metadata for that app.
+Connecting a store account lets ASOScan read the app's own reviews, ratings and listing text and post the review replies the user approves.
 
-> **You connect from the APP, not from Settings.** Open the app in ASOScan and click
-> **Connect** in its header. `Settings → Connections` only *lists* connected accounts
-> and lets you *disconnect* — you can't start a connection there.
+1. Open the app in ASOScan and click **Connect** in the app header. (Settings → Connections only lists and disconnects accounts.)
+2. Pick Google Play or App Store Connect and follow the wizard. The wizard shows the current steps and links the official Google and Apple guides; follow it rather than steps from memory.
+3. For anything that happens on Google's or Apple's side, look up the current official instructions with web search before guiding the user.
 
-**Steps (ASOScan side):**
-1. Open the app → click **Connect** (in the app header) → choose **Google Play**.
-2. Pick a tier:
-   - **Reviews & ASO** — reviews & replies, metadata, keyword rank & ASO impact.
-     Basic permissions, no security warnings (the quick, widely-available option).
-   - **Reviews & ASO + Reports** (recommended) — everything above **plus** your real
-     installs, downloads & churn by country; adds read-access to your Play reports
-     and one reports-URL paste. (This tier needs a sensitive scope and may be
-     limited/gated for now.)
-3. Click **Continue with Google** → sign in and approve → you're returned to the app.
-   (On the Reports tier you'll also paste your Play reports URL — the wizard has an
-   in-flow help dialog showing where to copy it from.)
+If the user does not see **Connect**, the feature may not be enabled for their account yet.
 
-**Google side:** sign in with a Google account that has the Play Console permission
-to **view app information** for that developer account. If the connection returns
-**"0 apps"**, that permission is almost always the cause. Google's Play Console /
-consent screens change — **look up the current official steps live** if the user
-gets stuck.
+Honesty: connected accounts read reviews, ratings and listing text and post approved review replies. ASOScan does not publish listing text to the stores.
 
-**Gating:** if you don't see the **Connect** button / the Google Play option, the
-connected-accounts feature may not be enabled for the account yet (it's rolling out).
+## 4. Ad accounts
 
----
-
-## 4. Connect your iOS app (App Store Connect)
-
-Apple has **no OAuth** — you paste an **App Store Connect API key** (a `.p8` team
-key). ASOScan's in-app wizard walks you through it and **links Apple's official
-guide**, so lean on the wizard.
-
-> **Connect from the APP** (its **Connect** button), same as Android —
-> `Settings → Connections` is view/disconnect only.
-
-**Steps:**
-1. Open the app → **Connect** (app header) → choose **App Store Connect**. A 4-step
-   wizard opens ("App Store Connect Integration").
-2. **Permissions** — generate the key with the **Admin** access level: Apple's Team
-   Keys take one role each, and Admin is the only one covering metadata + reviews +
-   replies + analytics. (An **App Manager** key works for metadata only —
-   reviews/replies/analytics won't.) Create it in **App Store Connect → Users and
-   Access → Integrations → App Store Connect API**; if you see "Permission is
-   required…", click **Request Access** first (usually same-day, up to a few days).
-   The wizard links Apple's official guide — use it, and **verify live** if Apple's
-   UI has moved.
-3. **Paste** into the form: **Issuer ID** (a UUID at the top of that ASC page),
-   **Key ID** (the 10-character ID next to the key), and the **.p8 Private Key**
-   (downloadable **once** at creation — store it safely).
-4. The wizard shows the **apps** the key can see; confirm → **Done**.
-
-Honesty: connected accounts let ASOScan **read your reviews, ratings, and listing
-metadata and post review replies** on your behalf — it does **not** publish metadata
-to the store for you.
-
----
-
-## 5. Deferred — ad-account setup (coming when the features are active)
-
-**Do not walk users through these yet.** Guidance for connecting ad accounts will
-be added here when the features are generally available:
-
-- **Google Play Ads (Google Ads campaigns, Android)** — connect a Google Ads
-  account (per-user OAuth). Currently rolling out / gated.
-- **Apple Search Ads (iOS)** — connect an Apple Ads account via a `.p8` key.
-
-When a user asks about these today, tell them ad-campaign management is being rolled
-out and isn't available on their account yet, and offer the ASO + keyword skills in
-the meantime. (When these ship, add their setup steps here — ASOScan side verified,
-Google/Apple side verified live — and flip this section from Deferred to active.)
+This skill does not cover ad accounts. Point the user to the ASOScan app.
 
 ---
 

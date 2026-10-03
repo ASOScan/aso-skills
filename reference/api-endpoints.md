@@ -228,3 +228,50 @@ To see headers, add `-D -` (dump headers) to a `curl` call, or read them from a
 - Interactive API reference (try-it console): <https://asoscan.com/api/developers>
 - OpenAPI spec: <https://asoscan.com/api/public/v1/openapi.json>
 - Postman collection: <https://asoscan.com/asoscan-public-api.postman_collection.json>
+
+---
+
+## Added in 1.3.0
+
+| Method | Path | Credits | Scope | Body / returns |
+|---|---|---|---|---|
+| GET | `/apps/{id}/recommendations` | 1 | read | `{ items[]{ id, status, platform, category, priority, title, why, how, expectedImpact, updatedAt }, generatedAt }` |
+| GET | `/apps/{id}/reviews/reply-templates` | 1 | read | `[{ id, name, body }]` |
+| GET | `/apps/{id}/localizations/drafts` | 1 | read | `[{ locale, languageName, countryCode, generatedAt, title, subtitle, promotionalText, shortDescription, description, keywordField }]` |
+| POST | `/apps` | 2 | write | `{ storeUrl, country, platform?, linkToAppId? }`; uses one app slot |
+| POST | `/apps/{id}/reviews/{reviewId}/reply-draft` | 2 + 1 AI credit | write | `{ instructions?, autoSelectKeyword, keywordIds?, country? }` → `{ replyText, keywordUsed }`; saves a draft only |
+| POST | `/apps/{id}/reviews/{reviewId}/reply` | 2 | write | `{ text }` → `{ responseBody }`; posts to the store; 409 `store-connection-required` without a connected store account |
+| POST | `/apps/{id}/localizations/{locale}/draft?force=false` | 2 + 1 AI credit | write | → `{ status, locale, countryCode, languageName, variants[]{ title, subtitle, promotionalText, shortDescription, description, keywordField, strategy }, targetKeywords }`; 202 "preparing" is not charged |
+
+## MCP tool names
+
+When the ASOScan tools are connected (ChatGPT, Claude, any MCP client at `https://asoscan.com/mcp`), each tool is one of these API calls, with the same credits and limits.
+
+| Tool | API call |
+|---|---|
+| `list_my_apps` | `GET /apps` |
+| `get_app_details` | `GET /apps/{id}` |
+| `get_aso_score` | `GET /apps/{id}/aso-score` |
+| `get_aso_recommendations` | `GET /apps/{id}/recommendations` |
+| `get_listing_metadata` | `GET /apps/{id}/metadata` |
+| `get_metadata_changelog` | `GET /apps/{id}/metadata/changelog` |
+| `get_tracked_keywords` | `GET /apps/{id}/keywords` |
+| `get_keyword_rank_history` | `GET /apps/{id}/keywords/{keywordId}/history` |
+| `get_keyword_metrics_history` | `GET /apps/{id}/keywords/{keywordId}/metrics-history` |
+| `research_keyword` | `GET /apps/{id}/keywords/research` |
+| `find_keyword_opportunities` | `GET /apps/{id}/opportunities` |
+| `spy_competitor_keywords` | `GET /apps/{id}/keyword-spy` |
+| `get_competitors` | `GET /apps/{id}/competitors` |
+| `get_category_rank` | `GET /apps/{id}/category-rank` |
+| `get_rating_history` | `GET /apps/{id}/rating-history` |
+| `get_reviews` | `GET /apps/{id}/reviews` |
+| `get_review_insights` | `GET /apps/{id}/reviews/insights` |
+| `list_reply_templates` | `GET /apps/{id}/reviews/reply-templates` |
+| `list_localized_drafts` | `GET /apps/{id}/localizations/drafts` |
+| `get_usage` | `GET /usage` |
+| `add_app` | `POST /apps` |
+| `track_keywords` | `POST /apps/{id}/keywords` |
+| `add_competitor` | `POST /apps/{id}/competitors` |
+| `draft_review_reply` | `POST /apps/{id}/reviews/{reviewId}/reply-draft` |
+| `post_review_reply` | `POST /apps/{id}/reviews/{reviewId}/reply` |
+| `draft_localized_metadata` | `POST /apps/{id}/localizations/{locale}/draft` |
