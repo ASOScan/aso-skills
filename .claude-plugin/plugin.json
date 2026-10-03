@@ -1,0 +1,31 @@
+{
+  "name": "asoscan",
+  "displayName": "ASOScan App Store Optimization",
+  "version": "1.3.0",
+  "description": "App Store Optimization for your own iOS and Android apps: keyword research, rank tracking, ASO score, competitor keywords and review replies from your ASOScan account.",
+  "author": {
+    "name": "ASOScan",
+    "email": "support@asoscan.com",
+    "url": "https://asoscan.com"
+  },
+  "homepage": "https://asoscan.com",
+  "repository": "https://github.com/ASOScan/aso-skills",
+  "license": "MIT",
+  "keywords": [
+    "app store optimization",
+    "aso",
+    "app store keyword research",
+    "best keywords for my app",
+    "how to rank my app higher on the app store",
+    "how to improve app ranking on google play",
+    "why is my app not showing in search",
+    "check my app store listing",
+    "aso tool",
+    "track my app keyword rankings"
+  ],
+  "icon": "./assets/logo.png",
+  "documentationUrl": "https://github.com/ASOScan/aso-skills#readme",
+  "supportUrl": "https://asoscan.com/resources/guides/asoscan-playbook",
+  "privacyPolicyUrl": "https://asoscan.com/legal/privacy",
+  "termsOfServiceUrl": "https://asoscan.com/legal/terms"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "asoscan",
+  "owner": {
+    "name": "ASOScan",
+    "email": "support@asoscan.com"
+  },
+  "plugins": [
+    {
+      "name": "asoscan",
+      "source": "./",
+      "description": "App Store Optimization for your own iOS and Android apps, with your ASOScan data in Claude."
+    }
+  ]
+}

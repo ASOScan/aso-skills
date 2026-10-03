@@ -1,0 +1,60 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "asoscan",
+  "version": "1.3.0",
+  "description": "App Store Optimization for your own iOS and Android apps: keyword research, rank tracking, ASO score, competitor keywords and review replies from your ASOScan account.",
+  "author": {
+    "name": "ASOScan",
+    "email": "support@asoscan.com",
+    "url": "https://asoscan.com"
+  },
+  "homepage": "https://asoscan.com",
+  "repository": "https://github.com/ASOScan/aso-skills",
+  "license": "MIT",
+  "keywords": [
+    "app store optimization",
+    "aso",
+    "app store keyword research",
+    "best keywords for my app",
+    "how to rank my app higher on the app store",
+    "how to improve app ranking on google play",
+    "why is my app not showing in search",
+    "check my app store listing",
+    "aso tool",
+    "track my app keyword rankings"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "ASOScan App Store Optimization",
+        "shortDescription": "App store keyword research",
+        "longDescription": "ASOScan is App Store Optimization (ASO) software for iOS and Android apps, built and run by one app developer. Connect your ASOScan account and ask about your own apps in plain words.\n\nWhat you can ask:\n- How to rank my app higher on the app store, or how to improve app ranking on Google Play. ASOScan reads your ASO score and its recommendations and tells you what to fix first.\n- Best keywords for my app. App store keyword research with search volume and difficulty, keyword opportunities you could rank for, and tracking for the ones you pick.\n- Why is my app not showing in search. See where you rank for each tracked keyword and how the rank moved day by day.\n- Check my app store listing. Read your current title, subtitle, keywords and description, see what changed over time, and draft listing text for other languages.\n- What keywords does my competitor rank for. Add a competitor by its store link and see the keywords it ranks for, its category rank and its rating history.\n- Summarize my app reviews. See sentiment, top topics, bugs and feature requests, and get AI drafts of review replies. A reply goes to the store only after you approve the exact text, and only for apps connected to App Store Connect or Google Play Console.\n\nWhy teams use it: one place for the whole ASO job on both stores, with your real numbers right in the chat. Good ASO improves organic rankings, and ASOScan helps you rank better. It does not promise a rank.\n\nWhat it does not do: it does not publish listing text to the stores, and it has no download or revenue data. Drafts stay in your ASOScan account.\n\nYou need an ASOScan account. New accounts start with a 7-day free trial, no card needed. Each answer uses API credits from your plan, and the tools that cost more tell you before they run. Without an account, the built-in skills still answer general ASO questions.",
+        "developerName": "ASOScan",
+        "category": "Data & Analytics",
+        "capabilities": [
+          "Read",
+          "Write",
+          "ASO score and recommendations",
+          "App store keyword research",
+          "Keyword opportunities",
+          "Track my app keyword rankings",
+          "Competitor keywords",
+          "Review insights",
+          "Review reply drafts",
+          "Localized listing drafts"
+        ],
+        "websiteURL": "https://asoscan.com",
+        "supportURL": "https://asoscan.com/resources/guides/asoscan-playbook",
+        "privacyPolicyURL": "https://asoscan.com/legal/privacy",
+        "termsOfServiceURL": "https://asoscan.com/legal/terms",
+        "defaultPrompt": [
+          "How to rank my app higher on the app store? Check my listing and tell me what to fix first.",
+          "Best keywords for my app: find keyword opportunities I can rank for and track the best ones.",
+          "Why is my app not showing in search? Check my tracked keywords and where I rank."
+        ],
+        "composerIcon": "./assets/composer-icon.png",
+        "logo": "./assets/logo.png"
+      }
+    }
+  }
+}
