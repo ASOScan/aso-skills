@@ -7,10 +7,11 @@ metadata:
 
 # ASOScan Router
 
-The entry point for the ASOScan skill pack. ASOScan gives you **real** ASO data —
-keyword volume & difficulty, your live rank, opportunities, competitor keywords,
-and review sentiment — so you optimize from numbers instead of guessing. This
-skill (1) makes sure the API key is set, then (2) routes to the right specialist.
+The entry point for the ASOScan skill pack. ASOScan gives you **real** ASO data:
+keyword volume and difficulty, your live rank, opportunities, competitor keywords
+and review sentiment, so you optimize from numbers instead of guessing. This
+skill (1) checks that ASOScan is reachable, through the connected ASOScan tools
+or an API key, then (2) routes to the right specialist.
 
 ## Step 0 — General ASO question? No key needed.
 
