@@ -4,6 +4,9 @@
     "name": "ASOScan",
     "email": "support@asoscan.com"
   },
+  "metadata": {
+    "description": "ASOScan App Store Optimization skills and connector for Claude: keyword research, rank tracking, ASO audits, competitor analysis and review replies for your own iOS and Android apps."
+  },
   "plugins": [
     {
       "name": "asoscan",

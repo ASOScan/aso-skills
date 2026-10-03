@@ -145,6 +145,8 @@ def check_claude(openai_manifest, ui):
         fail("marketplace.json: exactly one entry, same name as plugin.json, source './'")
     if not market.get("owner", {}).get("name"):
         fail("marketplace.json: owner.name required")
+    if not market.get("metadata", {}).get("description"):
+        fail("marketplace.json: metadata.description required (claude plugin validate --strict)")
 
 
 def check_skills(plugin_name, version):
