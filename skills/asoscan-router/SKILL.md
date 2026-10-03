@@ -1,6 +1,6 @@
 ---
 name: asoscan-router
-description: When the user wants any App Store Optimization (ASO) task powered by ASOScan — keyword volume or difficulty, app rank or rank tracking, keyword opportunities, spying on a competitor's keywords, competitor analysis, review sentiment, or a metadata/listing audit. Also use when the user mentions "ASO", "app store optimization", "keyword volume", "keyword difficulty", "my app's rank", "keywords my competitor ranks for", or "audit my app listing". Start here — it makes sure the ASOScan API key is set, then routes to the right ASOScan skill.
+description: When the user wants any App Store Optimization (ASO) task powered by ASOScan, such as keyword volume or difficulty, app rank or rank tracking, keyword opportunities, spying on a competitor's keywords, competitor analysis, review sentiment, review replies, listing text for another language, or a metadata/listing audit. Also use when the user mentions "ASO", "app store optimization", "keyword volume", "keyword difficulty", "my app's rank", "keywords my competitor ranks for", or "audit my app listing". Start here. It checks that the ASOScan tools are connected or an API key is set, then routes to the right ASOScan skill.
 metadata:
   version: 1.3.0
 ---

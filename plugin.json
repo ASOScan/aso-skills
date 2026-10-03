@@ -12,23 +12,33 @@
   "repository": "https://github.com/ASOScan/aso-skills",
   "license": "MIT",
   "keywords": [
-    "app store optimization",
-    "aso",
+    "tools for aso",
+    "app store ranking",
+    "app keywords",
+    "app store rank tracker",
     "app store keyword research",
-    "best keywords for my app",
-    "how to rank my app higher on the app store",
-    "how to improve app ranking on google play",
+    "google play store aso",
+    "app store localization",
+    "app competitor analysis",
+    "aso audit",
+    "reply to app store reviews",
+    "app review analysis",
     "why is my app not showing in search",
-    "check my app store listing",
+    "aso",
+    "app store optimization",
     "aso tool",
-    "track my app keyword rankings"
+    "app store optimization tools",
+    "app store keywords",
+    "best aso tool",
+    "app ranking checker",
+    "aso keyword research"
   ],
   "extensions": {
     "com.openai": {
       "interface": {
         "displayName": "ASOScan App Store Optimization",
-        "shortDescription": "App store keyword research",
-        "longDescription": "ASOScan is App Store Optimization (ASO) software for iOS and Android apps, built and run by one app developer. Connect your ASOScan account and ask about your own apps in plain words.\n\nWhat you can ask:\n- How to rank my app higher on the app store, or how to improve app ranking on Google Play. ASOScan reads your ASO score and its recommendations and tells you what to fix first.\n- Best keywords for my app. App store keyword research with search volume and difficulty, keyword opportunities you could rank for, and tracking for the ones you pick.\n- Why is my app not showing in search. See where you rank for each tracked keyword and how the rank moved day by day.\n- Check my app store listing. Read your current title, subtitle, keywords and description, see what changed over time, and draft listing text for other languages.\n- What keywords does my competitor rank for. Add a competitor by its store link and see the keywords it ranks for, its category rank and its rating history.\n- Summarize my app reviews. See sentiment, top topics, bugs and feature requests, and get AI drafts of review replies. A reply goes to the store only after you approve the exact text, and only for apps connected to App Store Connect or Google Play Console.\n\nWhy teams use it: one place for the whole ASO job on both stores, with your real numbers right in the chat. Good ASO improves organic rankings, and ASOScan helps you rank better. It does not promise a rank.\n\nWhat it does not do: it does not publish listing text to the stores, and it has no download or revenue data. Drafts stay in your ASOScan account.\n\nYou need an ASOScan account. New accounts start with a 7-day free trial, no card needed. Each answer uses API credits from your plan, and the tools that cost more tell you before they run. Without an account, the built-in skills still answer general ASO questions.",
+        "shortDescription": "App store ranking",
+        "longDescription": "ASOScan is App Store Optimization (ASO) software for iOS and Android apps, built and run by one app developer. Connect your ASOScan account and ask about your own apps in plain words.\n\nWhat it does:\n- App store ranking and Google Play store ASO. ASOScan reads your ASO score and its recommendations and tells you what to fix first.\n- App keywords. App store keyword research with search volume and difficulty, keyword opportunities you could rank for, and tracking for the ones you pick.\n- Why is my app not showing in search? See where you rank for each tracked keyword and how the rank moved day by day.\n- ASO audit. Check your current title, subtitle, keywords and description, see what changed over time, and draft listing text for other languages.\n- App competitor analysis. Add a competitor by its store link and see the keywords it ranks for, its category rank and its rating history.\n- App review analysis. See sentiment, top topics, bugs and feature requests, and get AI drafts of review replies. A reply goes to the store only after you approve the exact text, and only for apps connected to App Store Connect or Google Play Console.\n\nWhy teams use it: one place for the whole ASO job on both stores, with your real numbers right in the chat. Good ASO improves organic rankings, and ASOScan helps you rank better. It does not promise a rank.\n\nWhat it does not do: it does not publish listing text to the stores, and it has no download or revenue data. Drafts stay in your ASOScan account.\n\nYou need an ASOScan account. New accounts start with a 7-day free trial, no card needed. Each answer uses API credits from your plan, and the tools that cost more tell you before they run. Without an account, the built-in skills still answer general ASO questions.",
         "developerName": "ASOScan",
         "category": "Data & Analytics",
         "capabilities": [
@@ -37,7 +47,7 @@
           "ASO score and recommendations",
           "App store keyword research",
           "Keyword opportunities",
-          "Track my app keyword rankings",
+          "App store rank tracker",
           "Competitor keywords",
           "Review insights",
           "Review reply drafts",
@@ -48,8 +58,8 @@
         "privacyPolicyURL": "https://asoscan.com/legal/privacy",
         "termsOfServiceURL": "https://asoscan.com/legal/terms",
         "defaultPrompt": [
-          "How to rank my app higher on the app store? Check my listing and tell me what to fix first.",
-          "Best keywords for my app: find keyword opportunities I can rank for and track the best ones.",
+          "App store ranking? Check my listing and tell me what to fix first.",
+          "App keywords: find keyword opportunities I can rank for and track the best ones.",
           "Why is my app not showing in search? Check my tracked keywords and where I rank."
         ],
         "composerIcon": "./assets/composer-icon.png",

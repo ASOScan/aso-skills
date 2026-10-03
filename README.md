@@ -6,21 +6,21 @@
 ![ASO data by ASOScan](https://img.shields.io/badge/ASO%20data-ASOScan-047857)
 
 <p align="center">
-  <img src=".github/demo.gif" alt="ASOScan ASO skills running inside Claude Code — live keyword research with real volume, difficulty and competitors" width="820">
+  <img src=".github/demo.gif" alt="ASOScan ASO skills running inside Claude Code: live keyword research with real volume, difficulty and competitors" width="820">
 </p>
 
-<p align="center"><em>Real keyword volume, difficulty &amp; competitors — from inside your AI coding agent.</em></p>
+<p align="center"><em>Real keyword volume, difficulty &amp; competitors, from inside your AI coding agent.</em></p>
 
 ## What it is
 
 ASOScan is App Store Optimization (ASO) software for iOS and Android apps, built and run by one app developer. This repo is the ASOScan plugin for ChatGPT and Claude and a skill pack for coding agents. Connect your ASOScan account and ask about your own apps in plain words.
 
-- **How to rank my app higher on the app store**, or how to improve app ranking on Google Play: your ASO score, ASOScan's recommendations and what to fix first.
-- **Best keywords for my app**: app store keyword research with search volume and difficulty, keyword opportunities you could rank for, and tracking for the ones you pick.
+- **App store ranking** and **Google Play store ASO**: your ASO score, ASOScan's recommendations and what to fix first.
+- **App keywords**: app store keyword research with search volume and difficulty, keyword opportunities you could rank for, and tracking for the ones you pick.
 - **Why is my app not showing in search**: where you rank for each tracked keyword and how the rank moved day by day.
-- **Check my app store listing**: your current title, subtitle, keywords and description, what changed, and drafts for other languages.
-- **What keywords does my competitor rank for**: add a competitor by store link and see its keywords, category rank and rating history.
-- **Summarize my app reviews**: sentiment, topics, bugs and feature requests, and AI reply drafts. A reply goes to the store only after you approve the exact text.
+- **ASO audit**: your current title, subtitle, keywords and description, what changed, and drafts for other languages.
+- **App competitor analysis**: add a competitor by store link and see its keywords, category rank and rating history.
+- **App review analysis**: sentiment, topics, bugs and feature requests, and AI reply drafts. A reply goes to the store only after you approve the exact text.
 
 Good ASO improves organic rankings, and ASOScan helps you rank better. It does not promise a rank, does not publish listing text to the stores, and has no download or revenue data.
 
@@ -38,21 +38,21 @@ npx skills add ASOScan/aso-skills
 Then just ask your agent, in plain language:
 
 - *"How does App Store search ranking work?"* → answered instantly, **no API key needed**
-- *"Where do I rank for my keywords, and which should I target next?"* → [add an API key](#set-up-an-api-key-coding-agents-without-the-connector) (included on any plan; 7-day free trial)
+- *"Where do I rank for my keywords, and which should I target next?"* → [add an API key](#set-up-an-api-key-coding-agents-without-the-connector) (API access depends on your plan; 7-day free trial)
 
-⭐ **Useful? [Star the repo](https://github.com/ASOScan/aso-skills)** — it helps other developers find these skills.
+⭐ **Useful? [Star the repo](https://github.com/ASOScan/aso-skills)**. It helps other developers find these skills.
 
 ---
 
 Expert **App Store Optimization** in your AI workflow, powered by **real data**
 from the [ASOScan](https://asoscan.com/?utm_source=github&utm_medium=skill&utm_campaign=aso-skills&utm_content=readme)
-API — live keyword **volume + difficulty**, your app's **rank** (and its
+API: live keyword **volume + difficulty**, your app's **rank** (and its
 history), **keyword opportunities**, **keyword spy**, **competitor + review**
 intelligence, and a **metadata / ASO-score audit**.
 
 Each skill packages a battle-tested ASO framework, a scoring rubric, and an
 output template. The agent reads the skill, pulls live numbers from your ASOScan
-account, and gives you specific, actionable recommendations — not generic advice.
+account, and gives you specific, actionable recommendations, not generic advice.
 
 > Installed from the public repo **`ASOScan/aso-skills`** (GitHub org: ASOScan).
 
@@ -62,41 +62,41 @@ account, and gives you specific, actionable recommendations — not generic advi
 
 | Skill | What it does |
 |---|---|
-| **asoscan-router** | Start here. Reads a natural-language ASO request and routes it to the right skill. Runs first-run key setup. |
-| **aso-fundamentals** | Expert ASO best practices, keyword strategy, and golden tips — **works with no API key**. |
-| **asoscan-setup** | Guides getting your API key, setting up webhooks (Slack/Teams), and connecting Play Console / App Store — **no API key needed**. |
+| **asoscan-router** | Start here. Reads a natural-language ASO request, checks that the ASOScan tools are connected or an API key is set, and routes it to the right skill. |
+| **aso-fundamentals** | Expert ASO best practices, keyword strategy, and golden tips. **Works with no API key**. |
+| **asoscan-setup** | Guides connecting your ASOScan account or getting an API key, setting up webhooks (Slack/Teams), and connecting Play Console / App Store. **No API key needed**. |
 | **keyword-intelligence** | Volume, difficulty, your rank & rank movement, rank/metrics history, and live keyword research. |
 | **keyword-opportunities** | Gap-scored keyword suggestions worth targeting; can start tracking the winners. |
 | **keyword-spy** | Reverse-lookup: every keyword an app ranks for (yours or a tracked competitor's). |
 | **competitor-analysis** | Compare against tracked competitors; add a rival by store URL; category rank & rating history. |
-| **review-insights** | Review sentiment + the top topics, feature requests, and bugs users mention. |
-| **metadata-audit** | Audits your listing (title/subtitle/description/keywords) with your ASOScan ASO score and drafts honest improvements. |
+| **review-insights** | Review sentiment + the top topics, feature requests, and bugs users mention. Drafts review replies and posts one only after you approve the exact text. |
+| **metadata-audit** | Audits your listing (title/subtitle/description/keywords) with your ASOScan ASO score, drafts honest improvements, and drafts listing text for other languages. |
 
 ---
 
 ## What it can answer
 
-Ask in plain language — the router picks the right skill. Examples it handles today:
+Ask in plain language. The router picks the right skill. Examples it handles today:
 
-- **Keyword intelligence** — "What's the volume and difficulty of *habit tracker*?" ·
+- **Keyword intelligence**: "What's the volume and difficulty of *habit tracker*?" ·
   "Where do I rank for it, and is it moving?" · "Show my rank history." · "Research *sleep sounds*."
-- **Suggestions** — "**Suggest keywords to track for my app.**" · "What keywords am I
+- **Suggestions**: "**Suggest keywords to track for my app.**" · "What keywords am I
   missing vs my competitors?" · "Track these for me."
-- **Which keywords to use in the store** — "**Which keywords should I put in my
+- **Which keywords to use in the store**: "**Which keywords should I put in my
   title / subtitle / keyword field?**" (finds the terms, then drafts where they go,
   within Apple/Google limits).
-- **Keyword spy** — "What keywords does my app rank for?" · "What does *\<a competitor
+- **Keyword spy**: "What keywords does my app rank for?" · "What does *\<a competitor
   I track\>* rank for that I don't?"
-- **Competitors** — "Compare me to my competitors." · "**What category do my
+- **Competitors**: "Compare me to my competitors." · "**What category do my
   competitors use?**" · "Add *\<store URL\>* as a competitor." · "Am I gaining or
   losing in the category chart?"
-- **Listing audit** — "What's my ASO score and how do I raise it?" · "Rewrite my
+- **Listing audit**: "What's my ASO score and how do I raise it?" · "Rewrite my
   subtitle." · "What changed in my listing?"
-- **Reviews** — "What are users saying?" · "Top complaints / feature requests / bugs."
-- **Learn ASO (no key needed)** — "How does App Store search work?" · "How do I write
+- **Reviews**: "What are users saying?" · "Top complaints / feature requests / bugs."
+- **Learn ASO (no key needed)**: "How does App Store search work?" · "How do I write
   a good subtitle?" · "What's a solid keyword strategy?" · "Screenshot best practices?"
   (answered by **aso-fundamentals**, grounded in Apple/Google docs).
-- **Set up & connect (no key needed)** — "How do I get my API key?" · "Set up webhooks
+- **Set up & connect (no key needed)**: "How do I get my API key?" · "Set up webhooks
   / send alerts to Slack or Teams." · "Connect my Play Console / App Store app."
   (answered by **asoscan-setup**).
 
@@ -155,7 +155,7 @@ npx skills add ASOScan/aso-skills --skill keyword-intelligence keyword-spy
 1. Create an account and add an app:
    [asoscan.com/auth/register](https://asoscan.com/auth/register?utm_source=github&utm_medium=skill&utm_campaign=aso-skills&utm_content=readme)
 2. **Settings → API access → Create key** (choose *read* or *read + write*).
-   Copy it — it's shown only once.
+   Copy it. It is shown only once.
 3. Export it:
 
    ```bash
@@ -201,7 +201,7 @@ testimonials. Recommendations sell the outcome, not a mechanism.
 
 ## Contributing
 
-New skill ideas, more markets for the ASO tips, extra example prompts — all
+New skill ideas, more markets for the ASO tips, extra example prompts: all
 welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md), or open an issue. Newcomer-friendly
 tasks are labelled [`good first issue`](https://github.com/ASOScan/aso-skills/labels/good%20first%20issue).
 
@@ -209,4 +209,4 @@ tasks are labelled [`good first issue`](https://github.com/ASOScan/aso-skills/la
 
 ## License
 
-MIT — see [`LICENSE`](LICENSE).
+MIT. See [`LICENSE`](LICENSE).
