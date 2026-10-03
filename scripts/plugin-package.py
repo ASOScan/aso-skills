@@ -18,6 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 EM_DASH = "—"
+EN_DASH = "–"
 CATEGORIES = {
     "Productivity", "Creativity", "Developer Tools", "Business & Operations", "Data & Analytics",
     "Communication", "Education & Research", "Security", "Finance", "Healthcare", "Travel",
@@ -170,6 +171,8 @@ def check_skills(plugin_name, version):
             fail(f"{folder}: description over 1024 characters")
         elif ": " in description.group(1) and description.group(1).strip()[0] not in "\"'":
             fail(f"{folder}: unquoted description contains ': ', which breaks YAML")
+        if description and (EM_DASH in description.group(1) or EN_DASH in description.group(1)):
+            fail(f"{folder}: description contains an em dash or en dash")
         if len(f"{plugin_name}:{folder}") > 64:
             fail(f"{folder}: plugin:skill identity over 64 characters")
         if not skill_version or skill_version.group(1) != version:

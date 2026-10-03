@@ -6,7 +6,9 @@
 ![ASO data by ASOScan](https://img.shields.io/badge/ASO%20data-ASOScan-047857)
 
 <p align="center">
-  <img src=".github/demo.gif" alt="ASOScan ASO skills running inside Claude Code: live keyword research with real volume, difficulty and competitors" width="820">
+
+![ASOScan ASO skills running inside Claude Code: live keyword research with real volume, difficulty and competitors](.github/demo.gif)
+
 </p>
 
 <p align="center"><em>Real keyword volume, difficulty &amp; competitors, from inside your AI coding agent.</em></p>
@@ -25,8 +27,10 @@ ASOScan is App Store Optimization (ASO) software for iOS and Android apps, built
 Good ASO improves organic rankings, and ASOScan helps you rank better. It does not promise a rank, does not publish listing text to the stores, and has no download or revenue data.
 
 <p align="center">
-  <img src="assets/rank.webp" alt="ASOScan keyword rank over time for a tracked keyword" width="420">
-  <img src="assets/reply.webp" alt="ASOScan review reply draft before it is posted" width="300">
+
+![ASOScan keyword rank over time for a tracked keyword](assets/rank.webp)
+![ASOScan review reply draft before it is posted](assets/reply.webp)
+
 </p>
 
 ## ⚡ Quickstart
@@ -50,7 +54,7 @@ API: live keyword **volume + difficulty**, your app's **rank** (and its
 history), **keyword opportunities**, **keyword spy**, **competitor + review**
 intelligence, and a **metadata / ASO-score audit**.
 
-Each skill packages a battle-tested ASO framework, a scoring rubric, and an
+Each skill packages an ASO framework, a scoring rubric, and an
 output template. The agent reads the skill, pulls live numbers from your ASOScan
 account, and gives you specific, actionable recommendations, not generic advice.
 
@@ -101,11 +105,11 @@ Ask in plain language. The router picks the right skill. Examples it handles tod
   (answered by **asoscan-setup**).
 
 **Scope:** the **data** skills work on the apps in *your* ASOScan account (and
-competitors you track) and need an API key; the **aso-fundamentals** and
+competitors you track) and need the ASOScan connector or an API key; the **aso-fundamentals** and
 **asoscan-setup** skills work with no key. To analyze a rival, the skill first adds it
 as a competitor by **store URL** (there's no lookup by app name).
 
-**Not yet:** pulling any app's keywords by name without adding it, download/revenue
+**Not included:** pulling any app's keywords by name without adding it, download/revenue
 estimates, Apple's secondary category, or generating listing copy without your data.
 
 ---
@@ -123,9 +127,9 @@ The **data** skills need a connection or a key. **aso-fundamentals** and **asosc
 
 ## Install
 
-**ChatGPT:** add **ASOScan** from the plugin directory, then sign in to ASOScan when ChatGPT asks.
+**ChatGPT (coming soon):** add **ASOScan** from the plugin directory, then sign in to ASOScan when ChatGPT asks.
 
-**Claude (claude.ai, desktop, Cowork):** add **ASOScan** from the directory, then sign in.
+**Claude, claude.ai / desktop / Cowork (coming soon):** add **ASOScan** from the directory, then sign in.
 
 **Claude Code:**
 

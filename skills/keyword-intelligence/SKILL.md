@@ -1,6 +1,6 @@
 ---
 name: keyword-intelligence
-description: When the user wants to analyze keyword performance for an app tracked in ASOScan — real search volume, difficulty, the app's current rank and rank movement, daily rank history, weekly volume/difficulty trends, or live on-demand research for a new term. Also use when the user mentions "how hard is this keyword", "search volume for X", "where do I rank for Y", "is my rank going up or down", "show my rank history", or "research this keyword". For discovering new keywords to target, see keyword-opportunities.
+description: When the user wants to analyze keyword performance for an app tracked in ASOScan (real search volume, difficulty, the app's current rank and rank movement, daily rank history, weekly volume/difficulty trends), or live on-demand research for a new term. Also use when the user mentions "how hard is this keyword", "search volume for X", "where do I rank for Y", "is my rank going up or down", "show my rank history", or "research this keyword". For discovering new keywords to target, see keyword-opportunities.
 metadata:
   version: 1.3.0
 ---

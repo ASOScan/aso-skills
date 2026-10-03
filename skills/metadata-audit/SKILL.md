@@ -1,6 +1,6 @@
 ---
 name: metadata-audit
-description: When the user wants to audit or improve an app's store listing metadata using ASOScan — the current title, subtitle/short description, description, keyword field, and what's-new, plus ASOScan's ASO score and recommendations and the change history — then draft specific, honest improvements within the platform's character limits. Also use when the user mentions "audit my listing", "improve my metadata", "optimize my title/subtitle/description", "what's my ASO score", "rewrite my app store copy", or "what changed in my listing", or wants listing text drafted for another language ("translate my listing", "localize my listing"). For choosing which keywords to target, see keyword-opportunities.
+description: When the user wants to audit or improve an app's store listing metadata using ASOScan (the current title, subtitle/short description, description, keyword field, and what's-new, plus ASOScan's ASO score and recommendations and the change history), then draft specific, honest improvements within the platform's character limits. Also use when the user mentions "audit my listing", "improve my metadata", "optimize my title/subtitle/description", "what's my ASO score", "rewrite my app store copy", or "what changed in my listing", or wants listing text drafted for another language ("translate my listing", "localize my listing"). For choosing which keywords to target, see keyword-opportunities.
 metadata:
   version: 1.3.0
 ---
@@ -44,12 +44,12 @@ ASOScan only sees the apps in the user's own account and the competitors they tr
    recommendations[]{ category, severity, title, description } }` (0–100; severity
    `critical|warning|info`). **Use this as the headline number; don't invent one.**
 3. **Recommendations** (`get_aso_recommendations` or `GET /apps/{id}/recommendations`) → `{ items[]{ id, status, platform, category, priority, title, why, how, expectedImpact, updatedAt }, generatedAt }`. Lead with the highest priority items and use their `why` and `how` in your field-by-field advice.
-4. **Current metadata** — `GET /apps/{id}/metadata?country=` (1 credit) →
+4. **Current metadata**: `GET /apps/{id}/metadata?country=` (1 credit) →
    `{ title, subtitle, promotionalText, keywords, shortDescription, description,
    whatsNew, releaseDate }`. A **404** = nothing captured yet.
-5. **Change history** — `GET /apps/{id}/metadata/changelog?country=` (1 credit) →
+5. **Change history**: `GET /apps/{id}/metadata/changelog?country=` (1 credit) →
    `[{ field, oldValue, newValue, changedAt, oldVersion, newVersion }]`.
-6. **Target keywords** — pull winners from **keyword-opportunities** / **keyword-intelligence**.
+6. **Target keywords**: pull winners from **keyword-opportunities** / **keyword-intelligence**.
 
 ## Platform rules to enforce (Apple/Google official, current)
 

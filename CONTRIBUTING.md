@@ -59,6 +59,10 @@ ASO is a small niche where one wrong or over-claimed fact is reputational poison
 
 A PR that breaks these will be asked to change before it can be merged.
 
+Credit costs in a skill's table (e.g. "8 credits" for live research) come from the ASOScan MCP
+server (`McpText`) and the public API. If you change a skill's credit table, check it against those
+two first.
+
 ## Test your change
 
 - `bash scripts/asoscan-check.sh` — validates a key and that the API is reachable.

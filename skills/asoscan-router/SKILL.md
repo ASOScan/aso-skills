@@ -30,7 +30,7 @@ Teams alerts", "connect my Play Console / App Store app" — route to **asoscan-
 2. **No tools, but you can run shell commands**: check `ASOSCAN_API_KEY` (`[[ -n "$ASOSCAN_API_KEY" ]]`). If it is set, optionally validate once with `GET /usage` (free). Never print the key.
 3. **Neither**: route to **asoscan-setup**. Don't call the API without a connection or a key.
 
-## Step 2 — Resolve the app
+## Step 2: Resolve the app
 
 ASOScan only sees the apps in the user's own account. Call `list_my_apps` (or `GET /apps`) and match the user's app by name and store; use its `id` in every later step.
 
