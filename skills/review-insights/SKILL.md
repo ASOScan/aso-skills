@@ -2,7 +2,7 @@
 name: review-insights
 description: When the user wants to understand what users say about an app using ASOScan (overall review sentiment plus the top topics, feature requests, and bugs mentioned, and the raw reviews behind them). Also use when the user mentions "what are users saying", "review sentiment", "top complaints", "what features are people asking for", "what bugs are mentioned", or "summarize my reviews". Also use to draft a reply to a review and, after the user approves the exact text, post it ("reply to this review", "write a reply"). Works for your app or a tracked competitor.
 metadata:
-  version: 1.3.0
+  version: 1.3.1
 ---
 
 # Review Insights

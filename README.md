@@ -1,9 +1,11 @@
-# ASOScan: App Store Optimization in ChatGPT, Claude and any AI agent
+# ASOScan: Claude ASO skill and ChatGPT plugin for App Store Optimization
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 ![Skills: 9](https://img.shields.io/badge/skills-9-047857)
 ![Works with: Claude · ChatGPT · Cursor · any Agent Skills](https://img.shields.io/badge/works%20with-Claude%20%C2%B7%20ChatGPT%20%C2%B7%20Cursor%20%C2%B7%20any%20Agent%20Skills-047857)
 ![ASO data by ASOScan](https://img.shields.io/badge/ASO%20data-ASOScan-047857)
+
+ASOScan is an ASO skill for Claude, Claude Code and ChatGPT: ask about your own apps in plain words and get your real App Store and Google Play numbers.
 
 <p align="center">
 

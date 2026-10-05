@@ -2,7 +2,7 @@
 name: competitor-analysis
 description: When the user wants to compare an app against its tracked competitors using ASOScan (keyword overlap and gaps, which store category each competitor uses, category chart rank over time, and rating trajectory), or add a new rival by store URL. Also use when the user mentions "compare my app to competitors", "who am I competing with", "add this competitor", "how do I stack up", "am I gaining or losing vs them", "what category do my competitors use", or "category ranking". For a competitor's full keyword list, see keyword-spy.
 metadata:
-  version: 1.3.0
+  version: 1.3.1
 ---
 
 # Competitor Analysis

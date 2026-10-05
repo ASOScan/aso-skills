@@ -2,7 +2,7 @@
 name: keyword-opportunities
 description: When the user wants the best untapped keywords for an app tracked in ASOScan (gap-scored suggestions ranked by opportunity score, each showing which competitors already rank for the term). Also use when the user mentions "what keywords should I target", "find keyword opportunities", "what am I missing", "keyword gaps vs my competitors", or "suggest keywords to add". Can also start tracking the chosen terms. For validating a specific term's volume/difficulty, see keyword-intelligence.
 metadata:
-  version: 1.3.0
+  version: 1.3.1
 ---
 
 # Keyword Opportunities

@@ -2,7 +2,7 @@
 name: metadata-audit
 description: When the user wants to audit or improve an app's store listing metadata using ASOScan (the current title, subtitle/short description, description, keyword field, and what's-new, plus ASOScan's ASO score and recommendations and the change history), then draft specific, honest improvements within the platform's character limits. Also use when the user mentions "audit my listing", "improve my metadata", "optimize my title/subtitle/description", "what's my ASO score", "rewrite my app store copy", or "what changed in my listing", or wants listing text drafted for another language ("translate my listing", "localize my listing"). For choosing which keywords to target, see keyword-opportunities.
 metadata:
-  version: 1.3.0
+  version: 1.3.1
 ---
 
 # Metadata Audit

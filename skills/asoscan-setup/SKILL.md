@@ -2,7 +2,7 @@
 name: asoscan-setup
 description: When the user wants to set up ASOScan, for example to connect the ASOScan plugin or connector in ChatGPT or Claude, get an API access key for a coding agent, set up webhooks (including Slack or Microsoft Teams alerts), or connect Google Play Console or App Store Connect. Also use when the user mentions "connect ASOScan", "connect my ASOScan account", "get my API key", "set up webhooks", "send alerts to Slack", "connect my Play Console", "connect my App Store account", or "how do I hook this up". Works with no account and no key.
 metadata:
-  version: 1.3.0
+  version: 1.3.1
 ---
 
 # ASOScan Setup & Connect
