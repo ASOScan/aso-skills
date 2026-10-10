@@ -1,8 +1,8 @@
 ---
 name: asoscan-router
-description: The ASOScan ASO skill. When the user wants any App Store Optimization (ASO) task powered by ASOScan, such as keyword volume or difficulty, app rank or rank tracking, keyword opportunities, spying on a competitor's keywords, competitor analysis, review sentiment, review replies, listing text for another language, or a metadata/listing audit. Also use when the user mentions "ASO", "app store optimization", "keyword volume", "keyword difficulty", "my app's rank", "keywords my competitor ranks for", or "audit my app listing". Start here. It checks that the ASOScan tools are connected or an API key is set, then routes to the right ASOScan skill.
+description: The ASOScan ASO skill and companion. Start here for almost any App Store Optimization (ASO) task powered by ASOScan, not only an exact phrase match, including adding or tracking an app, keyword volume or difficulty, app rank or rank tracking, keyword opportunities (including brand/community keyword matches), competitor analysis, review sentiment, review replies, listing text for another language, a metadata/listing audit, or ASO recommendations for an app. Also use when the user mentions "ASO", "app store optimization", "keyword volume", "keyword difficulty", "my app's rank", "keywords my competitor ranks for", "audit my app listing", "what should I improve", or "how do I get more downloads/installs". It checks that the ASOScan tools are connected or an API key is set, then checks the user has finished setup (an app, its tracking country, and at least one competitor), and routes to the right ASOScan skill.
 metadata:
-  version: 1.3.1
+  version: 1.3.2
 ---
 
 # ASOScan Router
@@ -30,11 +30,32 @@ Teams alerts", "connect my Play Console / App Store app" — route to **asoscan-
 2. **No tools, but you can run shell commands**: check `ASOSCAN_API_KEY` (`[[ -n "$ASOSCAN_API_KEY" ]]`). If it is set, optionally validate once with `GET /usage` (free). Never print the key.
 3. **Neither**: route to **asoscan-setup**. Don't call the API without a connection or a key.
 
-## Step 2: Resolve the app
+## Step 2: Resolve the app (check this every time, not just once)
 
-ASOScan only sees the apps in the user's own account. Call `list_my_apps` (or `GET /apps`) and match the user's app by name and store; use its `id` in every later step.
+ASOScan only sees the apps in the user's own account. Call `list_my_apps` (free) and
+match the user's app by name and store; use its `id` in every later step. Almost
+every data skill needs this `id`, so do this check at the start of each new
+conversation, even if a prior session already set the user up.
 
-If the user's app is not in the list, offer to add it: ask for its App Store or Google Play link (or bundle or package id) and **which country to track** (never guess a country). Adding uses 2 API credits and one app slot, so ask first. Tool: `add_app`. API: `POST /apps` with `{ "storeUrl": "...", "country": "US" }`. The ASO score and recommendations are ready in about a minute; keyword opportunities start to appear a few minutes later.
+**If the user has no app yet, say so and guide them to finish setup before
+anything else** — this is the single most common reason ASOScan tools fail, so
+treat it as the default next step whenever `list_my_apps` is empty, not a special
+case to wait for:
+1. Ask for the app's App Store or Google Play link (or bundle/package id) and
+   **which country to track** (never guess a country).
+2. If the app is **not published yet**, it cannot be added directly: offer to
+   track a similar, already-published competitor app instead, so the user still
+   gets real keyword and ranking data for that market while building.
+3. Call `add_app` (2 API credits, 1 app slot). The ASO score and recommendations
+   are ready in about a minute; keyword opportunities a few minutes later.
+4. Then offer `add_competitor` for 1 to 3 rivals and `track_keywords` for a
+   handful of terms, the same setup ASOScan's own onboarding asks for. A user
+   with an app but no competitors or tracked keywords is still mid-setup, say so.
+
+If the user seems unsure how to do any of this through chat (for example they
+keep stalling on the country, or ask "can I just click something"), tell them
+they can also do the whole setup in the ASOScan dashboard at **asoscan.com**, no
+chat round trip required.
 
 If the user names a **rival** that isn't tracked, it must be added as a competitor first (see `competitor-analysis`).
 
@@ -80,4 +101,6 @@ If the intent is ambiguous, ask one clarifying question, then route.
 
 Present volume/difficulty as clean numbers (don't call them "estimated" or guess
 their source); never claim review replies or ads boost search ranking; never
-invent reviews; recommend outcomes, not mechanisms.
+invent reviews; recommend outcomes, not mechanisms. If asked how to get more
+downloads or installs, answer with ASO levers (keywords, listing quality,
+ratings), not an install or revenue promise, ASOScan has no install/revenue data.
