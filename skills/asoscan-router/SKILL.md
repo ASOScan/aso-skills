@@ -2,7 +2,7 @@
 name: asoscan-router
 description: The ASOScan ASO skill and companion. Start here for almost any App Store Optimization (ASO) task powered by ASOScan, not only an exact phrase match, including adding or tracking an app, keyword volume or difficulty, app rank or rank tracking, keyword opportunities (including brand/community keyword matches), competitor analysis, review sentiment, review replies, listing text for another language, a metadata/listing audit, or ASO recommendations for an app. Also use when the user mentions "ASO", "app store optimization", "keyword volume", "keyword difficulty", "my app's rank", "keywords my competitor ranks for", "audit my app listing", "what should I improve", or "how do I get more downloads/installs". It checks that the ASOScan tools are connected or an API key is set, then checks the user has finished setup (an app, its tracking country, and at least one competitor), and routes to the right ASOScan skill.
 metadata:
-  version: 1.3.3
+  version: 1.3.4
 ---
 
 # ASOScan Router
@@ -48,7 +48,10 @@ case to wait for:
    gets real keyword and ranking data for that market while building.
 3. Call `add_app` (2 API credits, 1 app slot). The ASO score and recommendations
    are ready in about a minute; keyword opportunities a few minutes later.
-4. Then offer `add_competitor` for 1 to 3 rivals, the same setup ASOScan's own
+4. Then offer `add_competitor` for 1 to 3 rivals. Ask for the competitor's
+   **store link specifically**, not a bundle/package id, `add_competitor`
+   cannot resolve a bare id the way `add_app` can, it needs the real App
+   Store or Google Play page URL. The same setup ASOScan's own
    onboarding asks for. A user with an app but no competitors is still mid-setup,
    say so.
 5. For keywords, call `find_keyword_opportunities` first and offer the ideas it
