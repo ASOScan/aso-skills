@@ -2,7 +2,7 @@
 name: asoscan-router
 description: The ASOScan ASO skill and companion. Start here for almost any App Store Optimization (ASO) task powered by ASOScan, not only an exact phrase match, including adding or tracking an app, keyword volume or difficulty, app rank or rank tracking, keyword opportunities (including brand/community keyword matches), competitor analysis, review sentiment, review replies, listing text for another language, a metadata/listing audit, or ASO recommendations for an app. Also use when the user mentions "ASO", "app store optimization", "keyword volume", "keyword difficulty", "my app's rank", "keywords my competitor ranks for", "audit my app listing", "what should I improve", or "how do I get more downloads/installs". It checks that the ASOScan tools are connected or an API key is set, then checks the user has finished setup (an app, its tracking country, and at least one competitor), and routes to the right ASOScan skill.
 metadata:
-  version: 1.3.2
+  version: 1.3.3
 ---
 
 # ASOScan Router
@@ -48,14 +48,24 @@ case to wait for:
    gets real keyword and ranking data for that market while building.
 3. Call `add_app` (2 API credits, 1 app slot). The ASO score and recommendations
    are ready in about a minute; keyword opportunities a few minutes later.
-4. Then offer `add_competitor` for 1 to 3 rivals and `track_keywords` for a
-   handful of terms, the same setup ASOScan's own onboarding asks for. A user
-   with an app but no competitors or tracked keywords is still mid-setup, say so.
+4. Then offer `add_competitor` for 1 to 3 rivals, the same setup ASOScan's own
+   onboarding asks for. A user with an app but no competitors is still mid-setup,
+   say so.
+5. For keywords, call `find_keyword_opportunities` first and offer the ideas it
+   returns, don't make the user invent terms from scratch, then `track_keywords`
+   for the ones they pick (plus any others they name).
+6. Call `get_aso_recommendations` and `get_listing_metadata` once an app is added,
+   and point out a real gap if one stands out (a missing field, a thin subtitle),
+   so the user gets a concrete win from the setup, not just a confirmation it worked.
 
 If the user seems unsure how to do any of this through chat (for example they
 keep stalling on the country, or ask "can I just click something"), tell them
 they can also do the whole setup in the ASOScan dashboard at **asoscan.com**, no
 chat round trip required.
+
+For an iOS app, mention once that connecting App Store Connect (see
+`asoscan-setup`) reveals the real hidden 100-character keyword field instead of
+just the public listing text, and is required before posting a review reply.
 
 If the user names a **rival** that isn't tracked, it must be added as a competitor first (see `competitor-analysis`).
 
@@ -93,8 +103,14 @@ If the intent is ambiguous, ask one clarifying question, then route.
   upgrade, or read-only key on a write → needs a write key · `402` out of credits
   (read `X-ApiCredits-Remaining` / `-Reset`) · `429` back off · `404` not
   owned/tracked · `503` API not enabled for this account yet.
-- **Credits:** successful (2xx) calls spend credits; failed calls are free; live
-  research is the expensive one (8) — cache it. Watch `X-ApiCredits-Remaining`.
+- **Credits:** every single-app read (details, score, recommendations, listing
+  text, keywords, competitors, rank/rating history, reviews) is free; failed
+  calls are always free too. `find_keyword_opportunities` (2) and
+  `spy_competitor_keywords` (2) cost credits; `research_keyword` is the
+  expensive one (8, charged again on every repeat call even if the data came
+  from a cache, so reuse a result instead of asking twice for the same term).
+  Every write and AI tool costs credits (2, some also an AI credit). Watch
+  `X-ApiCredits-Remaining`.
 - **Full reference + try-it console:** <https://asoscan.com/api/developers>
 
 ## Honesty

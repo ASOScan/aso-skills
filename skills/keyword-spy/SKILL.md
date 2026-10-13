@@ -2,7 +2,7 @@
 name: keyword-spy
 description: When the user wants to reverse-look-up every keyword an app ranks for using ASOScan's keyword-spy (the full set of terms an app appears under, community rank pool plus discovered terms), flagged by whether you already track them. Also use when the user mentions "what keywords does this app rank for", "reverse keyword lookup", "spy on a competitor's keywords", "what search terms is X winning", or "which of their keywords am I missing". For the fuller competitive picture, see competitor-analysis.
 metadata:
-  version: 1.3.2
+  version: 1.3.3
 ---
 
 # Keyword Spy
@@ -28,8 +28,8 @@ ASOScan only sees the apps in the user's own account and the competitors they tr
 
 | Step | Tool (connected) | API call (key) | API credits |
 |---|---|---|---|
-| Find the app | `list_my_apps` | `GET /apps` | 1 |
-| Is the rival tracked? | `get_competitors` | `GET /apps/{id}/competitors` | 1 |
+| Find the app | `list_my_apps` | `GET /apps` | free |
+| Is the rival tracked? | `get_competitors` | `GET /apps/{id}/competitors` | free |
 | Add the rival by store link (changes data) | `add_competitor` | `POST /apps/{id}/competitors` with `{ "storeUrl": "..." }` | 2, ask first |
 | Spy | `spy_competitor_keywords` | `GET /apps/{id}/keyword-spy?country=` | 2 |
 

@@ -2,7 +2,7 @@
 name: keyword-intelligence
 description: When the user wants to analyze keyword performance for an app tracked in ASOScan (real search volume, difficulty, the app's current rank and rank movement, daily rank history, weekly volume/difficulty trends), or live on-demand research for a new term. Also use when the user mentions "how hard is this keyword", "search volume for X", "where do I rank for Y", "is my rank going up or down", "show my rank history", or "research this keyword". For discovering new keywords to target, see keyword-opportunities.
 metadata:
-  version: 1.3.2
+  version: 1.3.3
 ---
 
 # Keyword Intelligence
@@ -29,10 +29,10 @@ ASOScan only sees the apps in the user's own account and the competitors they tr
 
 | Step | Tool (connected) | API call (key) | API credits |
 |---|---|---|---|
-| Find the app | `list_my_apps` | `GET /apps` | 1 |
-| Tracked keywords | `get_tracked_keywords` | `GET /apps/{id}/keywords?country=&rankWindow=7d` | 1 |
-| Rank history | `get_keyword_rank_history` | `GET /apps/{id}/keywords/{keywordId}/history?days=30` | 1 |
-| Volume and difficulty trend | `get_keyword_metrics_history` | `GET /apps/{id}/keywords/{keywordId}/metrics-history?days=180` | 1 |
+| Find the app | `list_my_apps` | `GET /apps` | free |
+| Tracked keywords | `get_tracked_keywords` | `GET /apps/{id}/keywords?country=&rankWindow=7d` | free |
+| Rank history | `get_keyword_rank_history` | `GET /apps/{id}/keywords/{keywordId}/history?days=30` | free |
+| Volume and difficulty trend | `get_keyword_metrics_history` | `GET /apps/{id}/keywords/{keywordId}/metrics-history?days=180` | free |
 | Live research | `research_keyword` | `GET /apps/{id}/keywords/research?term=&country=` | 8, say the cost first |
 
 ## Steps
@@ -40,22 +40,30 @@ ASOScan only sees the apps in the user's own account and the competitors they tr
 1. **Find the app** — `GET /apps` → each `{ id, name, platform, storeId, category }`.
    Use the `id`.
 2. **Tracked keywords + current state** — `GET /apps/{id}/keywords?country=&rankWindow=7d`
-   (1 credit). Each row: `{ id, term, country, rank, rankDelta, rankCheckedAt,
+   (free). Each row: `{ id, term, country, rank, rankDelta, rankCheckedAt,
    volume, difficulty, isFavorite }`. `rankWindow` = `1d|7d|30d`. Fetch the list
    once and filter locally. The row's `id` is the `{keywordId}` for history calls.
 3. **Rank history** — `GET /apps/{id}/keywords/{keywordId}/history?days=30`
-   (1 credit) → `[{ rank, recordedAt }]` (days 1–365).
+   (free) → `[{ rank, recordedAt }]` (days 1–365).
 4. **Volume/difficulty trend** — `GET /apps/{id}/keywords/{keywordId}/metrics-history?days=180`
-   (1 credit) → `{ term, country, volume[]{ at, value }, difficulty[]{ at, value } }`.
+   (free) → `{ term, country, volume[]{ at, value }, difficulty[]{ at, value } }`.
 5. **Live research** (a term not tracked yet) — `GET /apps/{id}/keywords/research?term=…&country=US`
-   (**8 credits — cache it**; URL-encode the term) → `{ term, platform, country,
-   volume, difficulty, competingAppsCount, topApps[] }`. A failed lookup is 400 (free).
+   (**8 credits every time, cache hit or not — reuse your own result instead of
+   calling it twice for the same term in one conversation, that bills the user
+   again for an answer you already have**; URL-encode the term) → `{ term,
+   platform, country, volume, difficulty, competingAppsCount, topApps[] }`. A
+   failed lookup is 400 (free).
+   For several keyword ideas at once, use `find_keyword_opportunities` (2
+   credits, covers many terms in one call) instead of researching them one by
+   one, this endpoint is for one specific term the user already has in mind.
 6. **Find easier alternatives when a term is hard.** If a researched term is high-volume but
-   **high-difficulty** (🟠 Stretch), research 2–3 long-tail variants of it — add a qualifier such as
-   `<term> games`, `<term> app`, `color <term>`, `best <term>` — via the research endpoint (step 5),
-   and surface any that keep useful volume at **lower difficulty** (a 🟢 Win-now alternative). Cache
-   each. This is the highest-leverage move for a Stretch term: point the user at a keyword they can
-   realistically win instead of one they can't.
+   **high-difficulty** (🟠 Stretch), research AT MOST 2–3 long-tail variants of it, not more — add
+   a qualifier such as `<term> games`, `<term> app`, `color <term>`, `best <term>` — via the
+   research endpoint (step 5), and surface any that keep useful volume at **lower difficulty**
+   (a 🟢 Win-now alternative). Cache each; stop once you have one good alternative or have tried 3,
+   whichever comes first — don't keep spending 8-credit calls chasing a better one. This is the
+   highest-leverage move for a Stretch term: point the user at a keyword they can realistically win
+   instead of one they can't.
 
 ## How to read the numbers
 
@@ -92,7 +100,7 @@ and place them with **metadata-audit**.
 
 - `401` → asoscan-setup · `403` → plan without API access · `402` out of credits
   (read `X-ApiCredits-Remaining`/`-Reset`) · `429` back off · `404` not tracked ·
-  `503` API not enabled yet. Successful calls spend credits; failed calls are free.
+  `503` API not enabled yet. Reads here are free; live research spends credits on success, failed calls are free.
 - Present volume/difficulty as clean numbers — don't label them "estimated" or
   guess their source. Never promise a specific rank.
 - Full reference: <https://asoscan.com/api/developers>

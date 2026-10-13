@@ -2,7 +2,7 @@
 name: keyword-opportunities
 description: When the user wants the best untapped keywords for an app tracked in ASOScan (gap-scored suggestions ranked by opportunity score, each showing which competitors already rank for the term). Also use when the user mentions "what keywords should I target", "find keyword opportunities", "what am I missing", "keyword gaps vs my competitors", or "suggest keywords to add". Can also start tracking the chosen terms. For validating a specific term's volume/difficulty, see keyword-intelligence.
 metadata:
-  version: 1.3.2
+  version: 1.3.3
 ---
 
 # Keyword Opportunities
@@ -28,7 +28,7 @@ ASOScan only sees the apps in the user's own account and the competitors they tr
 
 | Step | Tool (connected) | API call (key) | API credits |
 |---|---|---|---|
-| Find the app | `list_my_apps` | `GET /apps` | 1 |
+| Find the app | `list_my_apps` | `GET /apps` | free |
 | Opportunities | `find_keyword_opportunities` | `GET /apps/{id}/opportunities?country=&limit=50` | 2 |
 | Validate a finalist | `research_keyword` | `GET /apps/{id}/keywords/research?term=&country=` | 8, say the cost first |
 | Track the picks (changes data) | `track_keywords` | `POST /apps/{id}/keywords` with `{ "terms": [...], "country": "US" }` | 2, ask first |

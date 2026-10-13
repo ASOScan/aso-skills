@@ -2,7 +2,7 @@
 name: competitor-analysis
 description: When the user wants to compare an app against its tracked competitors using ASOScan (keyword overlap and gaps, which store category each competitor uses, category chart rank over time, and rating trajectory), or add a new rival by store URL. Also use when the user mentions "compare my app to competitors", "who am I competing with", "add this competitor", "how do I stack up", "am I gaining or losing vs them", "what category do my competitors use", or "category ranking". For a competitor's full keyword list, see keyword-spy.
 metadata:
-  version: 1.3.2
+  version: 1.3.3
 ---
 
 # Competitor Analysis
@@ -28,18 +28,18 @@ ASOScan only sees the apps in the user's own account and the competitors they tr
 
 | Step | Tool (connected) | API call (key) | API credits |
 |---|---|---|---|
-| Find the app | `list_my_apps` | `GET /apps` | 1 |
-| One app's facts (category, rating) | `get_app_details` | `GET /apps/{id}` | 1 |
-| Competitors | `get_competitors` | `GET /apps/{id}/competitors?country=` | 1 |
+| Find the app | `list_my_apps` | `GET /apps` | free |
+| One app's facts (category, rating) | `get_app_details` | `GET /apps/{id}` | free |
+| Competitors | `get_competitors` | `GET /apps/{id}/competitors?country=` | free |
 | Add a rival by store link (changes data) | `add_competitor` | `POST /apps/{id}/competitors` with `{ "storeUrl": "..." }` | 2, ask first |
-| Category rank over time | `get_category_rank` | `GET /apps/{id}/category-rank?country=&days=30` | 1 |
-| Rating history | `get_rating_history` | `GET /apps/{id}/rating-history` | 1 |
+| Category rank over time | `get_category_rank` | `GET /apps/{id}/category-rank?country=&days=30` | free |
+| Rating history | `get_rating_history` | `GET /apps/{id}/rating-history` | free |
 
 ## Steps
 
 1. **Find the app** — `GET /apps` → `{ id, name, category, rating, … }` (your own
    `category` is here).
-2. **Competitors** — `GET /apps/{id}/competitors?country=` (1 credit) →
+2. **Competitors** — `GET /apps/{id}/competitors?country=` (free) →
    `[{ id, name, developer, iconUrl, rating, ratingCount, category }]`. The
    `category` is each competitor's **primary store category** — this answers "what
    category do my competitors use?" (only the primary is exposed, not Apple's
@@ -47,8 +47,8 @@ ASOScan only sees the apps in the user's own account and the competitors they tr
 3. **Add a rival** (if asked) — `POST /apps/{id}/competitors { "storeUrl": "…" }`
    (2 credits, **write** key). Confirm before writing.
 4. **Category rank over time** — `GET /apps/{id}/category-rank?country=&days=30`
-   (1 credit) → `{ category, country, rankType, currentRank, points[]{ date, rank } }`.
-5. **Rating trajectory** — `GET /apps/{id}/rating-history` (1 credit) →
+   (free) → `{ category, country, rankType, currentRank, points[]{ date, rank } }`.
+5. **Rating trajectory** — `GET /apps/{id}/rating-history` (free) →
    `[{ rating, totalRatings, date }]`.
 6. **Keyword overlap** — pair with **keyword-spy** on each competitor for the gap list.
 
@@ -89,7 +89,8 @@ reads on that competitor's app id (it must be a tracked competitor).
 ## Errors, credits & honesty
 
 - `401` → asoscan-setup · `403` no API access (or read-only key on the add) · `402`
-  out of credits · `404` not tracked · `503` not enabled yet.
+  out of credits · `404` not tracked · `503` not enabled yet. Reads here are
+  free; only adding a competitor costs credits.
 - Compete on breadth, coverage, and momentum. Clean numbers — don't concede a
   rival's data is "more accurate", and don't claim a tactic guarantees a rank change.
 - Full reference: <https://asoscan.com/api/developers>

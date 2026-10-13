@@ -2,7 +2,7 @@
 name: review-insights
 description: When the user wants to understand what users say about an app using ASOScan (overall review sentiment plus the top topics, feature requests, and bugs mentioned, and the raw reviews behind them). Also use when the user mentions "what are users saying", "review sentiment", "top complaints", "what features are people asking for", "what bugs are mentioned", or "summarize my reviews". Also use to draft a reply to a review and, after the user approves the exact text, post it ("reply to this review", "write a reply"). Works for your app or a tracked competitor.
 metadata:
-  version: 1.3.2
+  version: 1.3.3
 ---
 
 # Review Insights
@@ -28,10 +28,10 @@ ASOScan only sees the apps in the user's own account and the competitors they tr
 
 | Step | Tool (connected) | API call (key) | API credits |
 |---|---|---|---|
-| Find the app | `list_my_apps` | `GET /apps` | 1 |
-| Insights | `get_review_insights` | `GET /apps/{id}/reviews/insights` | 1 |
-| Raw reviews | `get_reviews` | `GET /apps/{id}/reviews?page=1&pageSize=20&rating=&sort=newest` | 1 |
-| Saved reply templates | `list_reply_templates` | `GET /apps/{id}/reviews/reply-templates` | 1 |
+| Find the app | `list_my_apps` | `GET /apps` | free |
+| Insights | `get_review_insights` | `GET /apps/{id}/reviews/insights` | free |
+| Raw reviews | `get_reviews` | `GET /apps/{id}/reviews?page=1&pageSize=20&rating=&sort=newest` | free |
+| Saved reply templates | `list_reply_templates` | `GET /apps/{id}/reviews/reply-templates` | free |
 | Draft a reply (AI) | `draft_review_reply` | `POST /apps/{id}/reviews/{reviewId}/reply-draft` with `{ "instructions": "...", "autoSelectKeyword": true }` | 2 + 1 AI credit, say the cost first |
 | Post a reply (goes to the store) | `post_review_reply` | `POST /apps/{id}/reviews/{reviewId}/reply` with `{ "text": "..." }` | 2, exact text and a clear yes first |
 
@@ -39,12 +39,12 @@ ASOScan only sees the apps in the user's own account and the competitors they tr
 
 1. **Find the app** — `GET /apps` → use the `id`. For a rival, it must be a tracked
    competitor first (see **competitor-analysis**).
-2. **Insights** — `GET /apps/{id}/reviews/insights` (1 credit) →
+2. **Insights** — `GET /apps/{id}/reviews/insights` (free) →
    `{ totalAnalyzed, totalPending, sentiment{ positive, neutral, negative,
    averageScore }, topTopics[]{ label, count }, topFeatureRequests[]{ label, count },
    topBugs[]{ label, count } }`.
 3. **Raw reviews** (for evidence) — `GET /apps/{id}/reviews?page=1&pageSize=20&rating=&sort=newest`
-   (1 credit; pageSize 1–100; `rating=1..5` to isolate detractors/promoters) →
+   (free; pageSize 1–100; `rating=1..5` to isolate detractors/promoters) →
    `{ items[]{ id, author, rating, title, body, version, country, postedAt,
    developerResponse, developerResponseAt }, page, pageSize, totalCount, totalPages }`.
 
@@ -95,7 +95,8 @@ Replies help users and show the app is cared for. They are not a search-ranking 
 ## Errors, credits & honesty
 
 - `401` → asoscan-setup · `403` no API access · `402` out of credits · `404` not
-  tracked · `503` not enabled yet. Each read = 1 credit.
+  tracked · `503` not enabled yet. Reads here are free; drafting or posting a
+  reply costs credits.
 - **Never fabricate reviews.** Replying to reviews builds trust/retention but is
   **not** a search-ranking signal — don't frame replies as an ASO lever.
 - Full reference: <https://asoscan.com/api/developers>

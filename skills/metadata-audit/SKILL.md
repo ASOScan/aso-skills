@@ -2,7 +2,7 @@
 name: metadata-audit
 description: When the user wants to audit or improve an app's store listing metadata using ASOScan (the current title, subtitle/short description, description, keyword field, and what's-new, plus ASOScan's ASO score and recommendations and the change history), then draft specific, honest improvements within the platform's character limits. Also use when the user mentions "audit my listing", "improve my metadata", "optimize my title/subtitle/description", "what's my ASO score", "rewrite my app store copy", or "what changed in my listing", or wants listing text drafted for another language ("translate my listing", "localize my listing"). For choosing which keywords to target, see keyword-opportunities.
 metadata:
-  version: 1.3.2
+  version: 1.3.3
 ---
 
 # Metadata Audit
@@ -27,27 +27,27 @@ ASOScan only sees the apps in the user's own account and the competitors they tr
 
 | Step | Tool (connected) | API call (key) | API credits |
 |---|---|---|---|
-| Find the app | `list_my_apps` | `GET /apps` | 1 |
-| ASO score | `get_aso_score` | `GET /apps/{id}/aso-score?country=` | 1 |
-| ASOScan recommendations | `get_aso_recommendations` | `GET /apps/{id}/recommendations` | 1 |
-| Current listing text | `get_listing_metadata` | `GET /apps/{id}/metadata?country=` | 1 |
-| Change history | `get_metadata_changelog` | `GET /apps/{id}/metadata/changelog?country=` | 1 |
-| Saved drafts for other languages | `list_localized_drafts` | `GET /apps/{id}/localizations/drafts` | 1 |
+| Find the app | `list_my_apps` | `GET /apps` | free |
+| ASO score | `get_aso_score` | `GET /apps/{id}/aso-score?country=` | free |
+| ASOScan recommendations | `get_aso_recommendations` | `GET /apps/{id}/recommendations` | free |
+| Current listing text | `get_listing_metadata` | `GET /apps/{id}/metadata?country=` | free |
+| Change history | `get_metadata_changelog` | `GET /apps/{id}/metadata/changelog?country=` | free |
+| Saved drafts for other languages | `list_localized_drafts` | `GET /apps/{id}/localizations/drafts` | free |
 | Draft listing text for another language (AI) | `draft_localized_metadata` | `POST /apps/{id}/localizations/{locale}/draft` | 2 + 1 AI credit, say the cost first |
 
 ## Steps
 
 1. **Find the app** — `GET /apps` → note the `id` and `platform` (Apple vs Google —
    the rules differ).
-2. **ASO score (authoritative)** — `GET /apps/{id}/aso-score?country=` (1 credit) →
+2. **ASO score (authoritative)** — `GET /apps/{id}/aso-score?country=` (free) →
    `{ overall, metadata, ratings, conversion, conversionIsProxy, grade, platform,
    recommendations[]{ category, severity, title, description } }` (0–100; severity
    `critical|warning|info`). **Use this as the headline number; don't invent one.**
 3. **Recommendations** (`get_aso_recommendations` or `GET /apps/{id}/recommendations`) → `{ items[]{ id, status, platform, category, priority, title, why, how, expectedImpact, updatedAt }, generatedAt }`. Lead with the highest priority items and use their `why` and `how` in your field-by-field advice.
-4. **Current metadata**: `GET /apps/{id}/metadata?country=` (1 credit) →
+4. **Current metadata**: `GET /apps/{id}/metadata?country=` (free) →
    `{ title, subtitle, promotionalText, keywords, shortDescription, description,
    whatsNew, releaseDate }`. A **404** = nothing captured yet.
-5. **Change history**: `GET /apps/{id}/metadata/changelog?country=` (1 credit) →
+5. **Change history**: `GET /apps/{id}/metadata/changelog?country=` (free) →
    `[{ field, oldValue, newValue, changedAt, oldVersion, newVersion }]`.
 6. **Target keywords**: pull winners from **keyword-opportunities** / **keyword-intelligence**.
 
@@ -131,7 +131,8 @@ Describe the benefit only as Apple documents it: localized name, subtitle and ke
 ## Errors, credits & honesty
 
 - `401` → asoscan-setup · `403` no API access · `402` out of credits · `404` no
-  metadata yet · `503` not enabled yet. Each read = 1 credit.
+  metadata yet · `503` not enabled yet. Reads here are free; only drafting a
+  localized listing costs credits (2 API + 1 AI).
 - No invented claims/awards/"#1" superlatives (also banned in Google titles).
   Respect limits exactly. Recommend the outcome, not a guaranteed rank.
 - Full reference: <https://asoscan.com/api/developers>
