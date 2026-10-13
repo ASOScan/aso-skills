@@ -5,7 +5,7 @@
 ![Works with: Claude · ChatGPT · Cursor · any Agent Skills](https://img.shields.io/badge/works%20with-Claude%20%C2%B7%20ChatGPT%20%C2%B7%20Cursor%20%C2%B7%20any%20Agent%20Skills-047857)
 ![ASO data by ASOScan](https://img.shields.io/badge/ASO%20data-ASOScan-047857)
 
-ASOScan is an ASO skill for Claude, Claude Code and ChatGPT: ask about your own apps in plain words and get your real App Store and Google Play numbers.
+ASOScan is an ASO skill for Claude, Claude Code and ChatGPT: ask about your own apps in plain words and get your real App Store and Google Play numbers. If you are looking for an aso skill Claude connects to directly, or aso skills Claude can run without an API key, this is it.
 
 <p align="center">
 

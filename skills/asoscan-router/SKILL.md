@@ -2,7 +2,7 @@
 name: asoscan-router
 description: The ASOScan ASO skill and companion. Start here for almost any App Store Optimization (ASO) task powered by ASOScan, not only an exact phrase match, including adding or tracking an app, keyword volume or difficulty, app rank or rank tracking, keyword opportunities (including brand/community keyword matches), competitor analysis, review sentiment, review replies, listing text for another language, a metadata/listing audit, or ASO recommendations for an app. Also use when the user mentions "ASO", "app store optimization", "keyword volume", "keyword difficulty", "my app's rank", "keywords my competitor ranks for", "audit my app listing", "what should I improve", or "how do I get more downloads/installs". It checks that the ASOScan tools are connected or an API key is set, then checks the user has finished setup (an app, its tracking country, and at least one competitor), and routes to the right ASOScan skill.
 metadata:
-  version: 1.3.6
+  version: 1.3.7
 ---
 
 # ASOScan Router
