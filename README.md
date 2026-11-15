@@ -129,7 +129,7 @@ The **data** skills need a connection or a key. **aso-fundamentals** and **asosc
 
 ## Install
 
-**ChatGPT (coming soon):** add **ASOScan** from the plugin directory, then sign in to ASOScan when ChatGPT asks.
+**ChatGPT:** add **ASOScan** from the [ChatGPT plugin directory](https://chatgpt.com/plugins/plugin_asdk_app_6ac31e16fb6881919510d9cb1ea39463), then sign in to ASOScan when ChatGPT asks.
 
 **Claude, claude.ai / desktop / Cowork (coming soon):** add **ASOScan** from the directory, then sign in.
 
