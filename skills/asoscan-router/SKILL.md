@@ -67,7 +67,7 @@ they can also do the whole setup in the ASOScan dashboard at **asoscan.com**, no
 chat round trip required.
 
 For an iOS app, mention once that connecting App Store Connect (see
-`asoscan-setup`) reveals the real hidden 100-character keyword field instead of
+`asoscan-setup`) reveals the real hidden 100-byte keyword field instead of
 just the public listing text, and is required before posting a review reply.
 
 If the user names a **rival** that isn't tracked, it must be added as a competitor first (see `competitor-analysis`).

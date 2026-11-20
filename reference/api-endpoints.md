@@ -74,7 +74,8 @@ an app's `id` (a GUID) in every `/apps/{id}/…` path.
 
 ## Credit awareness
 
-Every **successful (2xx)** call spends credits. Failed calls (`404`, validation
+Reads are **free (0 credits)**. Every **successful (2xx)** paid call (research,
+opportunities, keyword spy, writes, AI drafts) spends credits. Failed calls (`404`, validation
 errors, a failed research lookup that returns `400`) are **free**. `GET /usage`
 is free. Read `X-ApiCredits-Remaining` and stay frugal. **Live research is 8
 credits** — cache the result for a term within the session; never repeat the same
@@ -86,24 +87,24 @@ credits** — cache the result for a term within the session; never repeat the s
 
 | Resource | Method · Path | Cost |
 |---|---|---|
-| Apps | `GET /apps` | 1 |
-| Apps | `GET /apps/{id}` | 1 |
-| Keywords | `GET /apps/{id}/keywords?country=&rankWindow=7d` | 1 |
-| Keywords | `GET /apps/{id}/keywords/{keywordId}/history?days=30` | 1 |
-| Keywords | `GET /apps/{id}/keywords/{keywordId}/metrics-history?days=180` | 1 |
+| Apps | `GET /apps` | 0 |
+| Apps | `GET /apps/{id}` | 0 |
+| Keywords | `GET /apps/{id}/keywords?country=&rankWindow=7d` | 0 |
+| Keywords | `GET /apps/{id}/keywords/{keywordId}/history?days=30` | 0 |
+| Keywords | `GET /apps/{id}/keywords/{keywordId}/metrics-history?days=180` | 0 |
 | Keywords | `GET /apps/{id}/keywords/research?term=&country=US` | **8** |
 | Keywords (write) | `POST /apps/{id}/keywords` — `{ "terms": [...], "country": "US" }` | 2 |
 | Opportunities | `GET /apps/{id}/opportunities?country=&limit=50` | **2** |
 | Keyword Spy | `GET /apps/{id}/keyword-spy?country=` | **2** |
-| Competitors | `GET /apps/{id}/competitors?country=` | 1 |
+| Competitors | `GET /apps/{id}/competitors?country=` | 0 |
 | Competitors (write) | `POST /apps/{id}/competitors` — `{ "storeUrl": "…" }` | 2 |
-| ASO Score | `GET /apps/{id}/aso-score?country=` | 1 |
-| Reviews | `GET /apps/{id}/reviews?page=1&pageSize=20&rating=&sort=newest` | 1 |
-| Reviews | `GET /apps/{id}/reviews/insights` | 1 |
-| Ranks | `GET /apps/{id}/category-rank?country=&days=30` | 1 |
-| Ranks | `GET /apps/{id}/rating-history` | 1 |
-| Metadata | `GET /apps/{id}/metadata?country=` | 1 |
-| Metadata | `GET /apps/{id}/metadata/changelog?country=` | 1 |
+| ASO Score | `GET /apps/{id}/aso-score?country=` | 0 |
+| Reviews | `GET /apps/{id}/reviews?page=1&pageSize=20&rating=&sort=newest` | 0 |
+| Reviews | `GET /apps/{id}/reviews/insights` | 0 |
+| Ranks | `GET /apps/{id}/category-rank?country=&days=30` | 0 |
+| Ranks | `GET /apps/{id}/rating-history` | 0 |
+| Metadata | `GET /apps/{id}/metadata?country=` | 0 |
+| Metadata | `GET /apps/{id}/metadata/changelog?country=` | 0 |
 | Usage | `GET /usage` | 0 |
 
 **Query parameter details** (defaults + clamps enforced server-side):
@@ -180,7 +181,8 @@ Parse exactly these fields. Nullable fields can be `null` — handle that.
 
 **`GET /apps/{id}/aso-score` → object**
 `overall, metadata, ratings, conversion, conversionIsProxy, grade, platform, recommendations[]{ category, severity, title, description }`
-- `overall` and the pillars are 0–100; `grade` is a letter; `severity` is
+- `overall` is 0–100; `metadata`, `ratings` and `conversion` are each 0–25, and
+  `overall` is their sum (out of 75) rescaled to 100; `grade` is a letter; `severity` is
   `critical` \| `warning` \| `info`.
 
 **`GET /apps/{id}/reviews` → object**
@@ -235,9 +237,9 @@ To see headers, add `-D -` (dump headers) to a `curl` call, or read them from a
 
 | Method | Path | Credits | Scope | Body / returns |
 |---|---|---|---|---|
-| GET | `/apps/{id}/recommendations` | 1 | read | `{ items[]{ id, status, platform, category, priority, title, why, how, expectedImpact, updatedAt }, generatedAt }` |
-| GET | `/apps/{id}/reviews/reply-templates` | 1 | read | `[{ id, name, body }]` |
-| GET | `/apps/{id}/localizations/drafts` | 1 | read | `[{ locale, languageName, countryCode, generatedAt, title, subtitle, promotionalText, shortDescription, description, keywordField }]` |
+| GET | `/apps/{id}/recommendations` | 0 | read | `{ items[]{ id, status, platform, category, priority, title, why, how, expectedImpact, updatedAt }, generatedAt }` |
+| GET | `/apps/{id}/reviews/reply-templates` | 0 | read | `[{ id, name, body }]` |
+| GET | `/apps/{id}/localizations/drafts` | 0 | read | `[{ locale, languageName, countryCode, generatedAt, title, subtitle, promotionalText, shortDescription, description, keywordField }]` |
 | POST | `/apps` | 2 | write | `{ storeUrl, country, platform?, linkToAppId? }`; uses one app slot |
 | POST | `/apps/{id}/reviews/{reviewId}/reply-draft` | 2 + 1 AI credit | write | `{ instructions?, autoSelectKeyword, keywordIds?, country? }` → `{ replyText, keywordUsed }`; saves a draft only |
 | POST | `/apps/{id}/reviews/{reviewId}/reply` | 2 | write | `{ text }` → `{ responseBody }`; posts to the store; 409 `store-connection-required` without a connected store account |

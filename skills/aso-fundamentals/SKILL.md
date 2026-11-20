@@ -51,7 +51,7 @@ warns against keyword stuffing.
 |---|---|---|---|
 | Title / App name | 30 chars | 30 chars | Yes — strongest signal |
 | Subtitle (Apple) / Short description (Google) | 30 chars | 80 chars | Yes |
-| Keyword field (Apple only) | 100 chars, comma-separated | — | Yes (hidden) |
+| Keyword field (Apple only) | 100 bytes, comma-separated (100 characters in plain English; non-Latin characters use more than one byte each) | — | Yes (hidden) |
 | Description | 4,000 chars | 4,000 chars | **Apple: No** · **Google: yes — write it naturally** |
 | Promotional text (Apple only) | 170 chars | — | No — but updatable anytime, no release needed |
 
@@ -59,7 +59,7 @@ warns against keyword stuffing.
 
 ## 3. Keyword strategy
 
-### Apple — the hidden 100-character keyword field (golden rules)
+### Apple — the hidden 100-byte keyword field (golden rules)
 
 Apple's own guidance:
 

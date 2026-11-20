@@ -6,7 +6,7 @@ for the human message.
 
 | Status | Meaning | What the skill does |
 |---|---|---|
-| **200–299** | Success | Use the body. A successful call spent credits — note `X-ApiCredits-Remaining` if it's getting low. |
+| **200–299** | Success | Use the body. A successful paid call spent credits (reads are free) — note `X-ApiCredits-Remaining` if it's getting low. |
 | **400** | Bad request / failed lookup (e.g. research found nothing) | Explain what failed. **Free** — no credit spent. Suggest a corrected term/params. |
 | **401** | Missing or invalid API key | The key is absent, wrong, or revoked. Stop and run the onboarding flow (`onboarding.md`). Do not retry blindly. |
 | **403** | `API access not included` (plan without API) **or** `Insufficient scope` (a write call with a read-only key) | For plan: tell the user their ASOScan plan doesn't include API access and point them to upgrade / the plans page. For scope: their key is read-only — they need a key with **write** scope for add-keyword / add-competitor actions. |

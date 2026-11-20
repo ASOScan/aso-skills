@@ -181,8 +181,8 @@ Full walkthrough: [`reference/onboarding.md`](reference/onboarding.md).
   the `ASOSCAN_API_KEY` environment variable, so any skill installs and runs on its
   own. The [`reference/`](reference/) folder is the full human API reference, and
   [`evals/`](evals/) holds manual test scenarios.
-- **Credit-aware:** each successful call spends credits from your monthly
-  allowance; failed calls are free. Live keyword research (8 credits) is treated
+- **Credit-aware:** reads are free; research, opportunities, keyword spy, writes
+  and AI drafts spend credits from your monthly allowance; failed calls are free. Live keyword research (8 credits) is treated
   as expensive and cached within a session. `GET /usage` (free) shows what's left.
 - **Owner-scoped:** to analyze a rival, the skill adds it as a competitor first,
   then reads its data.

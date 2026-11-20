@@ -23,7 +23,7 @@ Pick the first mode that applies, then follow the steps below.
 2. **No tools, but you can run shell commands and `ASOSCAN_API_KEY` is set**: make the API call in the table. Base `https://asoscan.com/api/public/v1`, header `Authorization: Bearer $ASOSCAN_API_KEY`, JSON with camelCase fields. Never print the key. Capture the HTTP status and handle errors as described at the bottom.
 3. **Neither**: hand off to **asoscan-setup**. It explains how to connect ASOScan in ChatGPT or Claude, or how to create an API key.
 
-ASOScan only sees the apps in the user's own account and the competitors they track. Every call uses API credits (failed calls are free). Before a call that costs more than 2 API credits, or one that uses AI, tell the user the cost and wait for a yes. Before any call that changes data, ask first.
+ASOScan only sees the apps in the user's own account and the competitors they track. Reads are free; the table below gives the cost of every call that is not (failed calls are always free). Before a call that costs more than 2 API credits, or one that uses AI, tell the user the cost and wait for a yes. Before any call that changes data, ask first.
 
 | Step | Tool (connected) | API call (key) | API credits |
 |---|---|---|---|
@@ -41,7 +41,8 @@ ASOScan only sees the apps in the user's own account and the competitors they tr
    the rules differ).
 2. **ASO score (authoritative)** — `GET /apps/{id}/aso-score?country=` (free) →
    `{ overall, metadata, ratings, conversion, conversionIsProxy, grade, platform,
-   recommendations[]{ category, severity, title, description } }` (0–100; severity
+   recommendations[]{ category, severity, title, description } }` (`overall` 0–100,
+   each pillar 0–25; severity
    `critical|warning|info`). **Use this as the headline number; don't invent one.**
 3. **Recommendations** (`get_aso_recommendations` or `GET /apps/{id}/recommendations`) → `{ items[]{ id, status, platform, category, priority, title, why, how, expectedImpact, updatedAt }, generatedAt }`. Lead with the highest priority items and use their `why` and `how` in your field-by-field advice.
 4. **Current metadata**: `GET /apps/{id}/metadata?country=` (free) →
@@ -55,8 +56,9 @@ ASOScan only sees the apps in the user's own account and the competitors they tr
 
 **Apple** — indexed search text = Title + Subtitle + hidden Keyword field (+ primary category):
 
-- Title **30 chars**, Subtitle **30 chars**, Keyword field **100 characters**
-  (non-Latin scripts consume it faster).
+- Title **30 chars**, Subtitle **30 chars**, Keyword field **100 bytes**
+  (100 characters in plain English; non-Latin characters use more than one byte
+  each, so Japanese, Chinese or Korean text fits far fewer characters).
 - Keyword field: **commas between terms** (a space is allowed *within* a phrase but
   costs a character — most list single words and let Apple recombine them across
   name + subtitle + keywords).
@@ -84,7 +86,9 @@ Ratings, Conversion (`conversionIsProxy: true` = estimated until store analytics
 connected), and Freshness.
 
 **Always print a score with its denominator.** `overall` is out of **100**;
-`metadata`, `ratings` and `conversion` are each out of **25**. A bare "metadata 25"
+`metadata`, `ratings` and `conversion` are each out of **25**. There is no fourth
+pillar: `overall` is the three pillars' sum (out of 75) rescaled to 100, so
+20 + 20 + 20 = 60/75 prints as **80/100**. A bare "metadata 25"
 reads as a failing grade when it is in fact a perfect one.
 
 **Know what the pillars measure.** `metadata` scores **completeness and limit
@@ -108,7 +112,7 @@ section below. That judgement is the value you add on top of the score.
 **Field-by-field**
 - **Title** ({used}/30): "{current}" → "{new}" ({N} chars) — {why}
 - **Subtitle/Short** ({used}/{30|80}): "{current}" → "{new}" — {why}
-- **Keywords** (Apple, {used}/100): "{current}" → "{new}" — no dupes vs title/subtitle
+- **Keywords** (Apple, {bytes used}/100 bytes): "{current}" → "{new}" — no dupes vs title/subtitle
 - **Description / What's new:** {fix}
 
 **ASOScan recommendations:** {surface each by severity}
